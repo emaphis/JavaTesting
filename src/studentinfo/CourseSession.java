@@ -3,6 +3,11 @@ package studentinfo;
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+* Provides a representation of a single-semester
+* session of a specific university course.
+* @author Administrator
+*/
 public class CourseSession {
 	private String department;
 	private String number;
