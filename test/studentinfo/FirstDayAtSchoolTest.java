@@ -1,15 +1,17 @@
-package school;
+package studentinfo;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import studentinfo.FirstDayAtSchool;
+
 public class FirstDayAtSchoolTest {
-	
+
 	FirstDayAtSchool school = new FirstDayAtSchool();
 	String[] bag1 = { "Books", "Notebooks", "Pens" };
 	String[] bag2 = { "Books", "Notebooks", "Pens", "Pencils" };
-	
+
 	@Test
 	public void testPrepareMyBag() {
 		System.out.println("Inside testPrepareMyBag()");

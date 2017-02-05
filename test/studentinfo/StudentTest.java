@@ -1,10 +1,10 @@
-package school;
+package studentinfo;
 
 import org.junit.Test;
+import junit.framework.TestCase;
+import studentinfo.Student;
 
-//import junit.framework.TestCase;
-
-public class StudentTest extends junit.framework.TestCase {
+public class StudentTest extends TestCase {
 
 	@Test
 	public void testCreate() {

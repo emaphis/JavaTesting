@@ -1,4 +1,4 @@
-package school;
+package studentinfo;
 
 import java.util.Arrays;
 
