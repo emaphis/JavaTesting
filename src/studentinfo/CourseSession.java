@@ -52,4 +52,8 @@ public class CourseSession {
 		return startDate;
 	}
 
+	public ArrayList<Student> getAllStudents() {
+		return students;
+	}
+
 }
