@@ -1,9 +1,9 @@
-package studentinfo;
+package sis.studentinfo;
 
 import org.junit.Test;
 import java.util.*;
 import junit.framework.*;
-import studentinfo.DateUtil;
+import sis.studentinfo.DateUtil;
 
 public class DateUtilTest extends TestCase {
 	private Date startDate;

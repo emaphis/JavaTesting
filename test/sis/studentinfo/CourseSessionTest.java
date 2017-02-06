@@ -1,10 +1,10 @@
-package studentinfo;
+package sis.studentinfo;
 
 import org.junit.Test;
 import junit.framework.TestCase;
-import studentinfo.CourseSession;
-import studentinfo.DateUtil;
-import studentinfo.Student;
+import sis.studentinfo.CourseSession;
+import sis.studentinfo.DateUtil;
+import sis.studentinfo.Student;
 
 import java.util.*;
 

@@ -1,8 +1,8 @@
-package studentinfo;
+package sis.studentinfo;
 
 import org.junit.Test;
 import junit.framework.TestCase;
-import studentinfo.Student;
+import sis.studentinfo.Student;
 
 public class StudentTest extends TestCase {
 

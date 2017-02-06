@@ -1,10 +1,10 @@
-package studentinfo;
+package sis.studentinfo;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import studentinfo.FirstDayAtSchool;
+import sis.studentinfo.FirstDayAtSchool;
 
 public class FirstDayAtSchoolTest {
 
