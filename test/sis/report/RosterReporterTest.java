@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import studentinfo.CourseSession;
 import studentinfo.DateUtil;
 import studentinfo.Student;
+import static sis.report.RosterReporter.NEWLINE;
 
 import org.junit.Test;
 
@@ -13,8 +14,8 @@ public class RosterReporterTest extends TestCase {
 	@Test
 	public void testRosterReport() {
 		CourseSession session =
-				new CourseSession("ENGL", "101",
-						new DateUtil().createDate(2003,1, 6));
+				CourseSession.create("ENGL", "101",
+						DateUtil.createDate(2003,1, 6));
 
 		session.enroll(new Student("A"));
 		session.enroll(new Student("B"));
@@ -22,9 +23,9 @@ public class RosterReporterTest extends TestCase {
 		String rosterReport = new RosterReporter(session).getReport();
 
 		assertEquals(RosterReporter.ROSTER_REPORT_HEADER +
-				     "A" + RosterReporter.NEWLINE +
-				     "B" + RosterReporter.NEWLINE +
+				     "A" + NEWLINE +
+				     "B" + NEWLINE +
 				     RosterReporter.ROSTER_REPORT_FOOTER + "2" +
-				     RosterReporter.NEWLINE, rosterReport);
+				     NEWLINE, rosterReport);
 	}
 }

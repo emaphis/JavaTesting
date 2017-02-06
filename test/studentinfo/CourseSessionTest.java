@@ -14,8 +14,8 @@ public class CourseSessionTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		startDate = new DateUtil().createDate(2003, 1, 6);
-		session = new CourseSession("ENGL", "101", startDate);
+		startDate = DateUtil.createDate(2003, 1, 6);
+		session = createCourseSession();
 	}
 
 	@Test
@@ -42,8 +42,21 @@ public class CourseSessionTest extends TestCase {
 
 	@Test
 	public void testCourseDates() {
-		Date sixteenWeeksOut = new DateUtil().createDate(2003, 4, 25);
+		Date sixteenWeeksOut = DateUtil.createDate(2003, 4, 25);
 		assertEquals(sixteenWeeksOut, session.getEndDate());
+	}
+
+	@Test
+	public void testCount() {
+		CourseSession.resetCount();
+		createCourseSession();
+		assertEquals(1, CourseSession.getCount());
+		createCourseSession();
+		assertEquals(2, CourseSession.getCount());
+	}
+
+	private CourseSession createCourseSession() {
+		return CourseSession.create("ENGL", "101", startDate);
 	}
 
 }

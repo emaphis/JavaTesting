@@ -1,6 +1,5 @@
 package studentinfo;
 
-import java.util.ArrayList;
 import java.util.*;
 
 /**
@@ -9,12 +8,13 @@ import java.util.*;
 * @author Administrator
 */
 public class CourseSession {
+	private static int count;
 	private String department;
 	private String number;
 	private ArrayList<Student> students = new ArrayList<>();
 	private Date startDate;
 
-	public CourseSession(String department, String number, Date startDate) {
+	private CourseSession(String department, String number, Date startDate) {
 		this.department = department;
 		this.number = number;
 		this.startDate = startDate;
@@ -56,4 +56,22 @@ public class CourseSession {
 		return students;
 	}
 
+	// class methods
+	static int getCount() {
+		return count;
+	}
+
+	static void resetCount() {
+		count = 0;
+	}
+
+	private static void incrementCount() {
+		++count;
+	}
+
+	// factoy method
+	public static CourseSession create(String department, String number, Date startDate2) {
+		incrementCount();
+		return new CourseSession(department, number, startDate2);
+	}
 }
