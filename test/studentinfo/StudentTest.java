@@ -38,4 +38,14 @@ public class StudentTest extends TestCase {
 				student.getCredits());
 		assertTrue(student.isFullTime());
 	}
+
+	@Test
+	public void testInState() {
+		Student student = new Student("a");
+		assertFalse(student.isInState());
+		student.setState(Student.IN_STATE);
+		assertTrue(student.isInState());
+		student.setState("MD");
+		assertFalse(student.isInState());
+	}
 }
