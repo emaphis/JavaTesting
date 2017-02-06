@@ -8,17 +8,14 @@ public class PawnTest extends TestCase {
 
 	@Test
 	public void testCreate() {
-		Pawn firstPawn = new Pawn(Pawn.WHITE);
+		Pawn firstPawn = new Pawn();
 		assertEquals(Pawn.WHITE, firstPawn.getColor());
+		assertEquals('p', firstPawn.getRepresentation());
 
-		Pawn secondPawn = new Pawn(Pawn.BLACK);
+		Pawn secondPawn = new Pawn(Pawn.BLACK, 'P');
 		assertEquals(Pawn.BLACK, secondPawn.getColor());
+		assertEquals('P', secondPawn.getRepresentation());
 	}
 
-	@Test
-	public void testCreatePawnWithoutColor() {
-		Pawn colorlessPawn = new Pawn();
-		assertEquals(Pawn.WHITE, colorlessPawn.getColor());
-	}
 
 }
