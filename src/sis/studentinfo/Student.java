@@ -9,7 +9,8 @@ public class Student {
 	static final String IN_STATE = "CO";
 	private String state = "";
 	enum Grade {A, B, C, D, F };
-	private ArrayList<Grade> grades = new ArrayList<>();
+	private List<Grade> grades = new ArrayList<>();
+	private GradingStratagy gradingStrategy = new RegularGradingStrategy();
 
 	public Student(String name) {
 		this.name = name;
@@ -50,18 +51,14 @@ public class Student {
 
 		double total = 0.0;
 		for (Grade grade: grades) {
-			total += gradePointsFor(grade);
+			total += gradingStrategy.getGradePointsFor(grade);
 		}
 
 		return total / grades.size();
 	}
 
-	private int gradePointsFor(Grade grade) {
-		if (grade == Grade.A) return 4;
-		if (grade == Grade.B) return 3;
-		if (grade == Grade.C) return 2;
-		if (grade == Grade.D) return 1;
-		return 0;
+	public void setGradingStrategy(GradingStratagy gradingStrategy) {
+		this.gradingStrategy = gradingStrategy;
 	}
 
 }

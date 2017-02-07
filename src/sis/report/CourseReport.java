@@ -5,7 +5,7 @@ import sis.studentinfo.*;
 import static sis.report.ReportConstant.NEWLINE;
 
 public class CourseReport {
-	private ArrayList<CourseSession> sessions = new ArrayList<>();
+	private List<CourseSession> sessions = new ArrayList<>();
 
 	public void add(CourseSession session) {
 		sessions.add(session);
