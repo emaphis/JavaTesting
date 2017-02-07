@@ -13,38 +13,38 @@ public class Board {
 
 	public void initialize() {
 		ArrayList<Piece> blackRank = new ArrayList<>();
-		blackRank.add(0, Piece.create(Piece.BLACK, "R"));
-		blackRank.add(1, Piece.create(Piece.BLACK, "N"));
-		blackRank.add(2, Piece.create(Piece.BLACK, "B"));
-		blackRank.add(3, Piece.create(Piece.BLACK, "Q"));
-		blackRank.add(4, Piece.create(Piece.BLACK, "K"));
-		blackRank.add(5, Piece.create(Piece.BLACK, "B"));
-		blackRank.add(6, Piece.create(Piece.BLACK, "N"));
-		blackRank.add(7, Piece.create(Piece.BLACK, "R"));
+		blackRank.add(0, Piece.create(Piece.Color.BLACK, "R"));
+		blackRank.add(1, Piece.create(Piece.Color.BLACK, "N"));
+		blackRank.add(2, Piece.create(Piece.Color.BLACK, "B"));
+		blackRank.add(3, Piece.create(Piece.Color.BLACK, "Q"));
+		blackRank.add(4, Piece.create(Piece.Color.BLACK, "K"));
+		blackRank.add(5, Piece.create(Piece.Color.BLACK, "B"));
+		blackRank.add(6, Piece.create(Piece.Color.BLACK, "N"));
+		blackRank.add(7, Piece.create(Piece.Color.BLACK, "R"));
 		board.add(0, blackRank);
 
-		board.add(1, createPieceRank(Piece.BLACK, "P"));
+		board.add(1, createPieceRank(Piece.Color.BLACK, "P"));
 
 		board.add(2, createPieceRank(null, "."));
 		board.add(3, createPieceRank(null, "."));
 		board.add(4, createPieceRank(null, "."));
 		board.add(5, createPieceRank(null, "."));
 
-		board.add(6, createPieceRank(Piece.WHITE, "p"));
+		board.add(6, createPieceRank(Piece.Color.WHITE, "p"));
 
 		ArrayList<Piece> whiteRank = new ArrayList<>();
-		whiteRank.add(0, Piece.create(Piece.WHITE, "r"));
-		whiteRank.add(1, Piece.create(Piece.WHITE, "n"));
-		whiteRank.add(2, Piece.create(Piece.WHITE, "b"));
-		whiteRank.add(3, Piece.create(Piece.WHITE, "q"));
-		whiteRank.add(4, Piece.create(Piece.WHITE, "k"));
-		whiteRank.add(5, Piece.create(Piece.WHITE, "b"));
-		whiteRank.add(6, Piece.create(Piece.WHITE, "n"));
-		whiteRank.add(7, Piece.create(Piece.WHITE, "r"));
+		whiteRank.add(0, Piece.create(Piece.Color.WHITE, "r"));
+		whiteRank.add(1, Piece.create(Piece.Color.WHITE, "n"));
+		whiteRank.add(2, Piece.create(Piece.Color.WHITE, "b"));
+		whiteRank.add(3, Piece.create(Piece.Color.WHITE, "q"));
+		whiteRank.add(4, Piece.create(Piece.Color.WHITE, "k"));
+		whiteRank.add(5, Piece.create(Piece.Color.WHITE, "b"));
+		whiteRank.add(6, Piece.create(Piece.Color.WHITE, "n"));
+		whiteRank.add(7, Piece.create(Piece.Color.WHITE, "r"));
 		board.add(7, whiteRank);
 	}
 
-	ArrayList<Piece> createPieceRank(String color, String name) {
+	ArrayList<Piece> createPieceRank(Piece.Color color, String name) {
 		ArrayList<Piece> rank = new ArrayList<>();
 		for (int i = 0; i < 8; i++) {
 			rank.add(Piece.create(color, name));

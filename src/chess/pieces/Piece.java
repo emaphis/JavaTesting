@@ -1,20 +1,21 @@
 package chess.pieces;
 
 public class Piece {
-	final private String color;
+	final private Color color;
 	final private String name;
 	private static int whiteCount;
 	private static int blackCount;
 
-	static final public String WHITE = "white";
-	static final public String BLACK = "black";
+	public enum Color { WHITE, BLACK };
+	//static final public String WHITE = "white";
+	//static final public String BLACK = "black";
 
-	private Piece(String color, String name) {
+	private Piece(Color color, String name) {
 		this.color = color;
 		this.name = name;
 	}
 
-	String getColor() {
+	Color getColor() {
 		return color;
 	}
 
@@ -23,20 +24,20 @@ public class Piece {
 	}
 
 	public boolean isWhite() {
-		return this.color == Piece.WHITE;
+		return this.color == Color.WHITE;
 	}
 
 	public boolean isBlack() {
-		return this.color == Piece.BLACK;
+		return this.color == Color.BLACK;
 	}
 
 
 	// factory method
-	public static Piece create(String color, String name) {
-		if (color == WHITE)
+	public static Piece create(Color color, String name) {
+		if (color == Color.WHITE)
 			whiteCount++;
 
-		if (color == BLACK)
+		if (color == Color.BLACK)
 			blackCount++;
 
 		return new Piece(color, name);
