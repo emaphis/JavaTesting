@@ -48,4 +48,25 @@ public class StudentTest extends TestCase {
 		student.setState("MD");
 		assertFalse(student.isInState());
 	}
+
+	private static final double GRADE_TOLERAANCE = 0.05;
+	@Test
+	public void testCalculateGpa() {
+		Student student = new Student("a");
+		assertGpa(student, 0.0);
+		student.addGrade(Student.Grade.A);
+		assertGpa(student, 4.0);
+		student.addGrade(Student.Grade.B);
+		assertGpa(student, 3.5);
+		student.addGrade(Student.Grade.C);
+		assertGpa(student, 3.0);
+		student.addGrade(Student.Grade.D);
+		assertGpa(student, 2.5);
+		student.addGrade(Student.Grade.F);
+		assertGpa(student, 2.0);
+	}
+
+	private void assertGpa(Student student, double expectedGpa) {
+		assertEquals(expectedGpa, student.getGpa(), GRADE_TOLERAANCE);
+	}
 }
