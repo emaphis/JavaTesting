@@ -9,7 +9,7 @@ public class BoardTest extends TestCase {
 	@Test
 	public void testCreate() {
 		Board board = new Board();
-		assertEquals(16, board.getNumberOfPawns());
+		assertEquals(16, board.getNumberOfPieces());
 
 		assertEquals("........", board.getRankRepresentation(0));
 		assertEquals("pppppppp", board.getRankRepresentation(6));

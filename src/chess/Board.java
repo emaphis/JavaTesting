@@ -1,47 +1,47 @@
 package chess;
 
 import java.util.ArrayList;
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 import chess.util.StringUtil;
 
 public class Board {
-	ArrayList<ArrayList<Pawn>> board = new ArrayList<ArrayList<Pawn>>();
+	ArrayList<ArrayList<Piece>> board = new ArrayList<ArrayList<Piece>>();
 
 	public Board() {
 		this.initialize();
 	}
 
 	public void initialize() {
-		board.add(0, createPawnRank(null, '.'));
-		board.add(1, createPawnRank(Pawn.BLACK, 'P'));
-		board.add(2, createPawnRank(null, '.'));
-		board.add(3, createPawnRank(null, '.'));
-		board.add(4, createPawnRank(null, '.'));
-		board.add(5, createPawnRank(null, '.'));
-		board.add(6, createPawnRank(Pawn.WHITE, 'p'));
-		board.add(7, createPawnRank(null, '.'));
+		board.add(0, createPieceRank(null, '.'));
+		board.add(1, createPieceRank(Piece.BLACK, 'P'));
+		board.add(2, createPieceRank(null, '.'));
+		board.add(3, createPieceRank(null, '.'));
+		board.add(4, createPieceRank(null, '.'));
+		board.add(5, createPieceRank(null, '.'));
+		board.add(6, createPieceRank(Piece.WHITE, 'p'));
+		board.add(7, createPieceRank(null, '.'));
 	}
 
-	ArrayList<Pawn> createPawnRank(String color, char representation) {
-		ArrayList<Pawn> rank = new ArrayList<>();
+	ArrayList<Piece> createPieceRank(String color, char representation) {
+		ArrayList<Piece> rank = new ArrayList<>();
 		for (int i = 0; i < 8; i++) {
-			rank.add(new Pawn(color, representation));
+			rank.add(new Piece(color, representation));
 		}
 
 		return rank;
 	}
 
-	public int getNumberOfPawns() {
+	public int getNumberOfPieces() {
 		return board.get(1).size() + board.get(6).size();
 	}
 
 
 	public String getRankRepresentation(int index) {
-		ArrayList<Pawn> rank = board.get(index);
+		ArrayList<Piece> rank = board.get(index);
 		StringBuilder buffer = new StringBuilder();
 
-		for (Pawn pawn: rank) {
-			buffer.append(pawn.getRepresentation());
+		for (Piece piece: rank) {
+			buffer.append(piece.getRepresentation());
 		}
 
 		return buffer.toString();
