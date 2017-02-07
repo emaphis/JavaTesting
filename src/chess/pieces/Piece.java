@@ -1,26 +1,27 @@
 package chess.pieces;
 
 public class Piece {
-	private String color;
-	static public String WHITE = "white";
-	static public String BLACK = "black";
-	private char representation = 'p';
+	final private String color;
+	final private String name;
 
-	public Piece(String color, char r) {
+	static final public String WHITE = "white";
+	static final public String BLACK = "black";
+
+	private Piece(String color, String name) {
 		this.color = color;
-		this.representation = r;
-	}
-
-	public Piece() {
-		this.color = WHITE;
-		this.representation = 'p';
+		this.name = name;
 	}
 
 	String getColor() {
 		return color;
 	}
 
-	public char getRepresentation() {
-		return representation;
+	public String getRepresentation() {
+		return name;
+	}
+
+	// factory method
+	public static Piece create(String color, String name) {
+		return new Piece(color, name);
 	}
 }

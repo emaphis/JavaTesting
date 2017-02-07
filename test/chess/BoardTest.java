@@ -2,28 +2,32 @@ package chess;
 
 import org.junit.Test;
 import junit.framework.TestCase;
-import static chess.util.StringUtil.appendNewLine;
+import chess.util.StringUtil;
 
 public class BoardTest extends TestCase {
+	private Board board;
+
+	protected void setUp() {
+		board = new Board();
+	}
 
 	@Test
 	public void testCreate() {
-		Board board = new Board();
+		board.initialize();
 		assertEquals(16, board.getNumberOfPieces());
 
-		assertEquals("........", board.getRankRepresentation(0));
-		assertEquals("pppppppp", board.getRankRepresentation(6));
-		assertEquals("PPPPPPPP", board.getRankRepresentation(1));
+		assertEquals("........", board.getRankName(0));
+		assertEquals("pppppppp", board.getRankName(6));
+		assertEquals("PPPPPPPP", board.getRankName(1));
 
-		assertEquals(appendNewLine("........") +
-					appendNewLine("PPPPPPPP") +
-					appendNewLine("........") +
-					appendNewLine("........") +
-					appendNewLine("........") +
-					appendNewLine("........") +
-					appendNewLine("pppppppp") +
-					appendNewLine("........"),
-		          board.printBoard());
+		String blankRank = StringUtil.appendNewLine("........");
+		assertEquals(
+				StringUtil.appendNewLine("........") +
+				StringUtil.appendNewLine("PPPPPPPP") +
+				blankRank + blankRank + blankRank + blankRank +
+				StringUtil.appendNewLine("pppppppp") +
+				StringUtil.appendNewLine("........"),
+		     board.printBoard());
 
 		System.out.println(board.printBoard());
 	}

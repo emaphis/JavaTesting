@@ -8,13 +8,13 @@ public class PieceTest extends TestCase {
 
 	@Test
 	public void testCreate() {
-		Piece firstPawn = new Piece();
+		Piece firstPawn =  Piece.create(Piece.WHITE, "p");
 		assertEquals(Piece.WHITE, firstPawn.getColor());
-		assertEquals('p', firstPawn.getRepresentation());
+		assertEquals("p", firstPawn.getRepresentation());
 
-		Piece secondPawn = new Piece(Piece.BLACK, 'P');
+		Piece secondPawn = Piece.create(Piece.BLACK, "P");
 		assertEquals(Piece.BLACK, secondPawn.getColor());
-		assertEquals('P', secondPawn.getRepresentation());
+		assertEquals("P", secondPawn.getRepresentation());
 	}
 
 
