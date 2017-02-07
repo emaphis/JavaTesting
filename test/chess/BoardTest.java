@@ -2,6 +2,7 @@ package chess;
 
 import org.junit.Test;
 import junit.framework.TestCase;
+import static chess.util.StringUtil.appendNewLine;
 
 public class BoardTest extends TestCase {
 
@@ -14,14 +15,14 @@ public class BoardTest extends TestCase {
 		assertEquals("pppppppp", board.getRankRepresentation(6));
 		assertEquals("PPPPPPPP", board.getRankRepresentation(1));
 
-		assertEquals("........\n" +
-		             "PPPPPPPP\n" +
-		             "........\n" +
-		             "........\n" +
-		             "........\n" +
-		             "........\n" +
-		             "pppppppp\n" +
-		             "........\n",
+		assertEquals(appendNewLine("........") +
+					appendNewLine("PPPPPPPP") +
+					appendNewLine("........") +
+					appendNewLine("........") +
+					appendNewLine("........") +
+					appendNewLine("........") +
+					appendNewLine("pppppppp") +
+					appendNewLine("........"),
 		          board.printBoard());
 
 		System.out.println(board.printBoard());

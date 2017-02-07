@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import chess.pieces.Pawn;
+import chess.util.StringUtil;
 
 public class Board {
 	ArrayList<ArrayList<Pawn>> board = new ArrayList<ArrayList<Pawn>>();
@@ -49,7 +50,7 @@ public class Board {
 	public String printBoard() {
 		StringBuilder buffer = new StringBuilder();
 		for (int i = 0; i < board.size(); i++) {
-			buffer.append(getRankRepresentation(i) + "\n");
+			buffer.append(StringUtil.appendNewLine(getRankRepresentation(i)));
 		}
 
 		return buffer.toString();
