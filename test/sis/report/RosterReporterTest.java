@@ -5,8 +5,7 @@ import junit.framework.TestCase;
 import sis.studentinfo.CourseSession;
 import sis.studentinfo.DateUtil;
 import sis.studentinfo.Student;
-
-import static sis.report.RosterReporter.NEWLINE;
+import static sis.report.ReportConstant.NEWLINE;
 
 import org.junit.Test;
 

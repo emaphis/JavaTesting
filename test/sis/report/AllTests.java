@@ -6,7 +6,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({RosterReporterTest.class})
+@SuiteClasses({RosterReporterTest.class,
+			   CourseReportTest.class})
 public class AllTests {
 
 }

@@ -7,7 +7,7 @@ import java.util.*;
 * session of a specific university course.
 * @author Administrator
 */
-public class CourseSession {
+public class CourseSession implements Comparable<CourseSession> {
 	private static int count;
 	private String department;
 	private String number;
@@ -79,6 +79,15 @@ public class CourseSession {
 	public static CourseSession create(String department, String number, Date startDate2) {
 		incrementCount();
 		return new CourseSession(department, number, startDate2);
+	}
+
+	// comaprable implementation
+	public int compareTo(CourseSession that) {
+		int compare =
+				this.getDepartment().compareTo(that.getDepartment());
+		if (compare == 0)
+			compare = this.getNumber().compareTo(that.getNumber());
+		return compare;
 	}
 
 }
