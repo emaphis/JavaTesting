@@ -2,6 +2,7 @@ package chess;
 
 import org.junit.Test;
 import junit.framework.TestCase;
+import chess.pieces.Piece;
 import chess.util.StringUtil;
 
 public class BoardTest extends TestCase {
@@ -13,8 +14,11 @@ public class BoardTest extends TestCase {
 
 	@Test
 	public void testCreate() {
+		Piece.resetCount();
 		board.initialize();
-		assertEquals(16, board.getNumberOfPieces());
+		assertEquals(16, Piece.getNumberOfWhite());
+		assertEquals(16, Piece.getNumberOfBlack());
+		assertEquals(32, board.getNumberOfPieces());
 
 		assertEquals("........", board.getRankName(4));
 		assertEquals("pppppppp", board.getRankName(6));

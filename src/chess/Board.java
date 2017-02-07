@@ -54,7 +54,7 @@ public class Board {
 	}
 
 	public int getNumberOfPieces() {
-		return board.get(1).size() + board.get(6).size();
+		return Piece.getNumberOfWhite() + Piece.getNumberOfBlack();
 	}
 
 

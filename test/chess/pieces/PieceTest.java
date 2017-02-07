@@ -17,5 +17,14 @@ public class PieceTest extends TestCase {
 		assertEquals("P", secondPawn.getRepresentation());
 	}
 
+	@Test
+	public void testColorFunctions() {
+		Piece piece1 = Piece.create(Piece.WHITE, "p");
+		assertTrue(piece1.isWhite());
+		assertFalse(piece1.isBlack());
 
+		Piece piece2 = Piece.create(Piece.BLACK, "P");
+		assertTrue(piece2.isBlack());
+		assertFalse(piece2.isWhite());
+	}
 }
