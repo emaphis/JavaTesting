@@ -16,20 +16,20 @@ public class BoardTest extends TestCase {
 		board.initialize();
 		assertEquals(16, board.getNumberOfPieces());
 
-		assertEquals("........", board.getRankName(0));
+		assertEquals("........", board.getRankName(4));
 		assertEquals("pppppppp", board.getRankName(6));
 		assertEquals("PPPPPPPP", board.getRankName(1));
 
+		System.out.println(board.printBoard());
+
 		String blankRank = StringUtil.appendNewLine("........");
 		assertEquals(
-				StringUtil.appendNewLine("........") +
+				StringUtil.appendNewLine("RNBQKBNR") +
 				StringUtil.appendNewLine("PPPPPPPP") +
 				blankRank + blankRank + blankRank + blankRank +
 				StringUtil.appendNewLine("pppppppp") +
-				StringUtil.appendNewLine("........"),
+				StringUtil.appendNewLine("rnbqkbnr"),
 		     board.printBoard());
-
-		System.out.println(board.printBoard());
 	}
 
 }
