@@ -14,7 +14,7 @@ public class Piece {
 		this.type = type;
 	}
 
-	Color getColor() {
+	public Color getColor() {
 		return color;
 	}
 

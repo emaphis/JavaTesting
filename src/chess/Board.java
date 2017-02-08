@@ -110,4 +110,41 @@ public class Board {
 
 		return buffer.toString();
 	}
+
+	public int getNumberOfAPiece(Piece.Type type, Piece.Color color) {
+		int count = 0;
+		for (List<Piece> rank: board) {
+			for (Piece piece: rank) {
+				if (piece.getType().equals(type) && piece.getColor().equals(color))
+					count++;
+			}
+		}
+		return count;
+	}
+
+	int invertIndex(int index) {
+		return -(index-7) + 1;
+	}
+
+	Piece getAt(String location) {
+		char[] array = location.toCharArray();
+		int file = array[0] - 'a';
+		int rank = invertIndex(Integer.parseInt("" + array[1]));
+
+		Piece piece = board.get(rank).get(file);
+
+		//System.out.print(location + " : " + file + " : " + rank + " : ");
+		//System.out.println(piece.getType() + " : " + piece.getColor() + " : " + piece.getRepresentation());
+
+		return piece;
+	}
+
+	public void setAt(Piece piece, String location) {
+		char[] array = location.toCharArray();
+		int file = array[0] - 'a';
+		int rank = invertIndex(Integer.parseInt("" + array[1]));
+		ArrayList<Piece> row = board.get(rank);
+		row.set(file, piece);
+		board.set(rank, row);
+	}
 }

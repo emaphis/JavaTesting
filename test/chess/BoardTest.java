@@ -36,4 +36,39 @@ public class BoardTest extends TestCase {
 		     board.printBoard());
 	}
 
+	@Test
+	public void testGetNumberOfPiece() {
+		Piece.resetCount();
+		board.initialize();
+		assertEquals(8, board.getNumberOfAPiece(Piece.Type.PAWN, Piece.Color.WHITE));
+		assertEquals(2, board.getNumberOfAPiece(Piece.Type.ROOK, Piece.Color.BLACK));
+		assertEquals(1, board.getNumberOfAPiece(Piece.Type.KING, Piece.Color.WHITE));;
+	}
+
+	@Test
+	public void testGetAt() {
+		assertEquals(7, board.invertIndex(1));
+		assertEquals(5, board.invertIndex(3));
+		assertEquals(4, board.invertIndex(4));
+		assertEquals(3, board.invertIndex(5));
+		assertEquals(0, board.invertIndex(8));
+
+		board.initialize();
+		Piece blackRook = board.getAt("a8");
+		assertEquals(Piece.Color.BLACK, blackRook.getColor());
+		assertEquals(Piece.Type.ROOK, blackRook.getType());
+
+		Piece whiteKing = board.getAt("e1");
+		assertEquals(Piece.Color.WHITE, whiteKing.getColor());
+		assertEquals(Piece.Type.KING, whiteKing.getType());
+		//board.getAt("e1");
+	}
+
+	@Test
+	public void testSetAt() {
+		board.initialize();
+		Piece blackRook = Piece.createBlack(Piece.Type.ROOK);
+		board.setAt(blackRook, "a6");
+		assertEquals(blackRook, board.getAt("a6"));
+	}
 }
