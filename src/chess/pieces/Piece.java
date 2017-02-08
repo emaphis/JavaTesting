@@ -39,6 +39,17 @@ public class Piece {
 		return representaion;
 	}
 
+
+	public double getStrengthOfPiece() {
+		if (type == Type.PAWN) return 1;
+		else if (type == Type.ROOK) return 5;
+		else if (type == Type.KNIGHT) return 2.5;
+		else if (type == Type.BISHOP) return 3;
+		else if (type == Type.QUEEN) return 9;
+		
+		return 0;
+	}
+
 	public boolean isWhite() {
 		return this.color == Color.WHITE;
 	}

@@ -1,7 +1,10 @@
 package chess;
 
 import java.util.*;
+
+
 import chess.pieces.Piece;
+import chess.pieces.Piece.Color;
 import chess.util.StringUtil;
 
 public class Board {
@@ -146,5 +149,41 @@ public class Board {
 		ArrayList<Piece> row = board.get(rank);
 		row.set(file, piece);
 		board.set(rank, row);
+	}
+
+
+	public double assesStrength(Piece.Color color) {
+		double accum = 0.0;
+		int rankIndex = 0;
+		int fileIndex = 0;
+		for (ArrayList<Piece> rank: board) {
+			fileIndex++;
+			rankIndex = 0;
+			for (Piece piece: rank) {
+				rankIndex++;
+				if (piece.getColor().equals(color)) {
+					if (piece.getType().equals(Piece.Type.PAWN))
+						accum += getPawnStrength(piece.getColor(), fileIndex, rankIndex);
+					else
+						accum += piece.getStrengthOfPiece();
+				}	
+			}
+					}
+		return accum;
+	}
+
+	 double getPawnStrength(Piece.Color color, int fileIndex, int rankIndex) {
+		 int count = 0;
+		 for (ArrayList<Piece> rank: board) {
+			 count++;
+			 Piece piece = rank.get(fileIndex);
+			 if (count != rankIndex &&
+					 piece.getType().equals(Piece.Type.PAWN) &&
+					 piece.getColor().equals(color))
+				 return 0.1;   // then their is a pawn in the same rank
+			 else
+				 return piece.getStrengthOfPiece();
+		}
+		return 0.0;
 	}
 }
