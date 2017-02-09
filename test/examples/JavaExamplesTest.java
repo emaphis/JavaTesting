@@ -63,4 +63,31 @@ public class JavaExamplesTest {
         assertEquals(0, "A".compareTo("A"));
         assertTrue("B".compareTo("A") > 0);
 	}
+
+	enum Score { fieldGoal, touchdown, extraPoint,
+		        twoPointConversion, safety };
+
+
+	@Test
+	public void testSwitchResults() {
+		int totalPoints = 0;
+		Score score = Score.touchdown;
+
+		switch (score) {
+		case fieldGoal:
+			totalPoints += 3;
+			break;
+		case touchdown:
+			totalPoints += 6;
+			break;
+		case extraPoint:
+			totalPoints += 1;
+			break;
+		case twoPointConversion:
+		case safety:
+			totalPoints += 2;
+			break;
+		}
+		assertEquals(6, totalPoints);
+	}
 }

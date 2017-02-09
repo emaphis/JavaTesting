@@ -7,7 +7,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({RosterReporterTest.class,
-			   CourseReportTest.class})
+			   CourseReportTest.class,
+			   ReportCardTest.class})
 public class AllTests {
 
 }
