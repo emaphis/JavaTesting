@@ -10,7 +10,7 @@ public class Student {
 	private String state = "";
 	public enum Grade {A, B, C, D, F };
 	private List<Grade> grades = new ArrayList<>();
-	private GradingStratagy gradingStrategy = new RegularGradingStrategy();
+	private GradingStratagy gradingStrategy = new BasicGradingStrategy();
 
 	public Student(String name) {
 		this.name = name;
