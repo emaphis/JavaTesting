@@ -4,12 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import examples.JavaExamplesTest;
-
 @RunWith(Suite.class)
 @SuiteClasses({sis.studentinfo.AllTests.class,
 	           sis.report.AllTests.class,
-	           JavaExamplesTest.class})
+	           examples.AllTests.class,
+	           sis.summer.AllTests.class})
 public class AllTests {
 
 }
