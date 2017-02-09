@@ -6,7 +6,7 @@ public class Piece {
 	private static int whiteCount;
 	private static int blackCount;
 
-	public enum Color { WHITE, BLACK };
+	public enum Color { WHITE, BLACK, NONE };
 	public enum Type { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, NONE };
 
 	private Piece(Type type, Color color) {
@@ -74,7 +74,7 @@ public class Piece {
 
 	public static Piece createNullPiece()
 	{
-		return new Piece(Type.NONE, null);
+		return new Piece(Type.NONE, Color.NONE);
 	}
 
 

@@ -4,95 +4,72 @@ import java.util.*;
 
 
 import chess.pieces.Piece;
-import chess.pieces.Piece.Color;
 import chess.util.StringUtil;
 
 public class Board {
 	ArrayList<ArrayList<Piece>> board = new ArrayList<ArrayList<Piece>>();
 
 	public Board() {
-		//this.initialize();
+	//	this.empty();
+	}
+
+	public void empty() {
+		for (int index = 0; index < 8; ++index) {
+			board.add(index, createPawnRank(Piece.Color.NONE));
+		}
 	}
 
 	public void initialize() {
-		board.add(0, createBlackRank());
-		board.add(1, createBlackPawnRank());
+		board.add(0, createRank(Piece.Color.BLACK));
+		board.add(1, createPawnRank(Piece.Color.BLACK));
 
-		board.add(2, createPieceRank(Piece.createNullPiece()));
-		board.add(3, createPieceRank(Piece.createNullPiece()));
-		board.add(4, createPieceRank(Piece.createNullPiece()));
-		board.add(5, createPieceRank(Piece.createNullPiece()));
+		board.add(2, createNullRank());
+		board.add(3, createNullRank());
+		board.add(4, createNullRank());
+		board.add(5, createNullRank());
 
-		board.add(6, createWhitePawnRank());
-		board.add(7, createWhiteRank());
+		board.add(6, createPawnRank(Piece.Color.WHITE));
+		board.add(7, createRank(Piece.Color.WHITE));
 	}
 
-	ArrayList<Piece> createPieceRank(Piece piece) {
-		ArrayList<Piece> rank = new ArrayList<>();
-		for (int i = 0; i < 8; i++) {
-			rank.add(piece);
-		}
+	ArrayList<Piece> createNullRank() {
+		return createPawnRank(Piece.Color.NONE);
+	}
 
+	ArrayList<Piece> createRank(Piece.Color color) {
+		ArrayList<Piece> rank = new ArrayList<>();
+		rank.add(0, createPiece(color, Piece.Type.ROOK));
+		rank.add(1, createPiece(color, Piece.Type.KNIGHT));
+		rank.add(2, createPiece(color, Piece.Type.BISHOP));
+		rank.add(3, createPiece(color, Piece.Type.QUEEN));
+		rank.add(4, createPiece(color, Piece.Type.KING));
+		rank.add(5, createPiece(color, Piece.Type.BISHOP));
+		rank.add(6, createPiece(color, Piece.Type.KNIGHT));
+		rank.add(7, createPiece(color, Piece.Type.ROOK));
 		return rank;
 	}
 
-	ArrayList<Piece> createWhiteRank() {
-		ArrayList<Piece> whiteRank = new ArrayList<>();
-		whiteRank.add(0, Piece.createWhite(Piece.Type.ROOK));
-		whiteRank.add(1, Piece.createWhite(Piece.Type.KNIGHT));
-		whiteRank.add(2, Piece.createWhite(Piece.Type.BISHOP));
-		whiteRank.add(3, Piece.createWhite(Piece.Type.QUEEN));
-		whiteRank.add(4, Piece.createWhite(Piece.Type.KING));
-		whiteRank.add(5, Piece.createWhite(Piece.Type.BISHOP));
-		whiteRank.add(6, Piece.createWhite(Piece.Type.KNIGHT));
-		whiteRank.add(7, Piece.createWhite(Piece.Type.ROOK));
-		return whiteRank;
+	private ArrayList<Piece> createPawnRank(Piece.Color color) {
+		ArrayList<Piece> pawnRank = new ArrayList<>();
+		for (int index = 0; index < 8; ++index) {
+			pawnRank.add(index, createPiece(color, Piece.Type.PAWN));
+		}
+		return pawnRank;
 	}
 
-	ArrayList<Piece> createBlackRank() {
-		ArrayList<Piece> blackRank = new ArrayList<>();
-		blackRank.add(0, Piece.createBlack(Piece.Type.ROOK));
-		blackRank.add(1, Piece.createBlack(Piece.Type.KNIGHT));
-		blackRank.add(2, Piece.createBlack(Piece.Type.BISHOP));
-		blackRank.add(3, Piece.createBlack(Piece.Type.QUEEN));
-		blackRank.add(4, Piece.createBlack(Piece.Type.KING));
-		blackRank.add(5, Piece.createBlack(Piece.Type.BISHOP));
-		blackRank.add(6, Piece.createBlack(Piece.Type.KNIGHT));
-		blackRank.add(7, Piece.createBlack(Piece.Type.ROOK));
-
-		return blackRank;
+	private Piece createPiece(Piece.Color color, Piece.Type type)
+	{
+		if (Piece.Color.WHITE == color)
+			return Piece.createWhite(type);
+		else if (Piece.Color.BLACK == color)
+			return Piece.createBlack(type);
+		else return Piece.createNullPiece();
 	}
 
-	ArrayList<Piece> createWhitePawnRank() {
-		ArrayList<Piece> whitePawnRank = new ArrayList<>();
-		whitePawnRank.add(0, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(1, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(2, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(3, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(4, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(5, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(6, Piece.createWhite(Piece.Type.PAWN));
-		whitePawnRank.add(7, Piece.createWhite(Piece.Type.PAWN));
-		return whitePawnRank;
-	}
-
-	ArrayList<Piece> createBlackPawnRank() {
-		ArrayList<Piece> blackPawnRank = new ArrayList<>();
-		blackPawnRank.add(0, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(1, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(2, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(3, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(4, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(5, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(6, Piece.createBlack(Piece.Type.PAWN));
-		blackPawnRank.add(7, Piece.createBlack(Piece.Type.PAWN));
-		return blackPawnRank;
-	}
-
+	// Piece handling
 	public int getNumberOfPieces() {
 		return Piece.getNumberOfWhite() + Piece.getNumberOfBlack();
 	}
-
 
 	public String getRankName(int index) {
 		ArrayList<Piece> rank = board.get(index);
@@ -177,13 +154,11 @@ public class Board {
 		 for (ArrayList<Piece> rank: board) {
 			 count++;
 			 Piece piece = rank.get(fileIndex);
-			 if (count != rankIndex &&
-					 piece.getType().equals(Piece.Type.PAWN) &&
+			 if (count != rankIndex )
+				 if (piece.getType().equals(Piece.Type.PAWN) &&
 					 piece.getColor().equals(color))
-				 return 0.1;   // then their is a pawn in the same rank
-			 else
-				 return piece.getStrengthOfPiece();
+					 return 0.5;
 		}
-		return 0.0;
+		return 1.0;
 	}
 }

@@ -71,4 +71,32 @@ public class BoardTest extends TestCase {
 		board.setAt(blackRook, "a6");
 		assertEquals(blackRook, board.getAt("a6"));
 	}
+
+	@Test
+	public void testAssesValues() {
+		Board board = new Board();
+		board.empty();
+		assertEquals(0.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		board.setAt(Piece.createWhite(Piece.Type.PAWN), "a2");
+		assertEquals(1.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		board.setAt(Piece.createWhite(Piece.Type.PAWN), "b2");
+		assertEquals(2.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		// TODO:
+		//board.setAt(Piece.createWhite(Piece.Type.PAWN), "b3");
+		//assertEquals(2.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		board.setAt(Piece.createWhite(Piece.Type.QUEEN), "d1");
+		assertEquals(11.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		board.setAt(Piece.createWhite(Piece.Type.KING), "e1");
+		assertEquals(11.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+		board.setAt(Piece.createBlack(Piece.Type.ROOK), "a8");
+		assertEquals(11.0, board.assesStrength(Piece.Color.WHITE), .00001);
+
+	//	System.out.println(board.printBoard());
+	}
 }
