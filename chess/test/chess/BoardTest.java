@@ -3,7 +3,6 @@ package chess;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import pieces.Pawn;
 
 public class BoardTest extends TestCase {
 
@@ -15,18 +14,34 @@ public class BoardTest extends TestCase {
 	@Test
 	public void testCreate() {
 		Board board = new Board();
-		assertEquals(0, board.getNumber());
+		board.intialize();
+		//Pawn.resetNumberPawns();
+		assertEquals(16, board.getNumber());
+		assertEquals("pppppppp", board.getRankRepresentation(2));
+		assertEquals("PPPPPPPP", board.getRankRepresentation(7));
+
+		// test my cheat
+		assertEquals("........", board.getRankRepresentation(1));
 	}
+
+
+    private  String expectedBoard1 =
+    		"........" + Board.NEW_LINE +
+    		"PPPPPPPP" + Board.NEW_LINE +
+    		"........" + Board.NEW_LINE +
+    		"........" + Board.NEW_LINE +
+    		"........" + Board.NEW_LINE +
+    		"........" + Board.NEW_LINE +
+    		"pppppppp" + Board.NEW_LINE +
+    		"........" + Board.NEW_LINE;
 
 	@Test
-	public void testAddPawn(){
+	public void testBoardRepresentation() {
 		Board board = new Board();
+		board.intialize();
 
-		board.addPawn(new Pawn());
-		assertEquals(1, board.getNumber());
+		System.out.println(board.getBoardRepresentation());
 
-		board.addPawn(new Pawn(Pawn.BLACK));
-		assertEquals(2, board.getNumber());
+		assertEquals(expectedBoard1, board.getBoardRepresentation());
 	}
-
 }

@@ -8,7 +8,11 @@ package pieces;
 public class Pawn {
 	public static final String WHITE = "white";
 	public static final String BLACK = "black";
+	public static final String BLANK = "blank"; // the empty square.
+
 	private final String color;
+	private Character name;
+	private static int numberOfPawns = 0;
 
 	/**
 	* Constructs a default white Pawn
@@ -16,6 +20,8 @@ public class Pawn {
 	*/
 	public Pawn() {
 		this.color = WHITE;
+		this.name = 'p';
+		numberOfPawns = numberOfPawns + 1;
 	}
 
 	/**
@@ -23,8 +29,12 @@ public class Pawn {
 	*
 	* @param color og the pawn
 	*/
-	public Pawn(String color) {
+	public Pawn(String color, Character name) {
 		this.color = color;
+		this.name = name;
+
+		if (color != BLANK)  // cheat and use 'if'
+			numberOfPawns = numberOfPawns + 1;
 	}
 
 	/**
@@ -34,4 +44,16 @@ public class Pawn {
 		return color;
 	}
 
+	public Character getName() {
+		return name;
+	}
+
+	// class interface
+	public static void resetNumberPawns() {
+		numberOfPawns = 0;
+	}
+
+	public static int getNumberPawns() {
+		return numberOfPawns;
+	}
 }
