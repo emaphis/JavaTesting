@@ -7,87 +7,43 @@ import java.util.*;
 * session of a specific university course.
 * @author Administrator
 */
-public class CourseSession implements Comparable<CourseSession> {
+public class CourseSession extends Session {
 	private static int count;
-	private String department;
-	private String number;
-	private int numberOfCredits;
-	private List<Student> students = new ArrayList<>();
-	private Date startDate;
 
-	protected CourseSession(String department, String number, Date startDate) {
-		this.department = department;
-		this.number = number;
-		this.startDate = startDate;
+	public static CourseSession create(String department,
+            							String number,
+            							Date startDate){
+		return new CourseSession(department, number, startDate);
 	}
 
-	public String getDepartment() {
-		return department;
+	protected CourseSession(String department,
+			                String number,
+			                Date startDate) {
+		super(department, number, startDate);
+		CourseSession.incrementCount();
 	}
 
-	public String getNumber() {
-		return number;
-	}
-
-	public int getNumberOfStudents() {
-		return students.size();
-	}
-
-	public void setNumberOfCredits(int numberOfCredits) {
-		this.numberOfCredits = numberOfCredits;
-	}
-
-	public void enroll(Student student) {
-		student.addCredits(numberOfCredits);
-		students.add(student);
-	}
-
-	public Student get(int index) {
-		return students.get(index);
-	}
-
-	protected int getSessionLength() {
-		return 16;
-	}
-
-	public Date getEndDate() {
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(getStartDate());
-		int daysInWeek = 7;
-		int daysFromFridayToMonday = 3;
-		int numberOfDays = getSessionLength() * daysInWeek - daysFromFridayToMonday;
-		calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
-		return calendar.getTime();
-	}
-
-	protected Date getStartDate() {
-		return startDate;
-	}
-
-	public List<Student> getAllStudents() {
-		return students;
-	}
 
 	// class methods
-	static int getCount() {
-		return count;
+
+	private static void incrementCount() {
+		++count;
 	}
 
 	static void resetCount() {
 		count = 0;
 	}
 
-	private static void incrementCount() {
-		++count;
+	static int getCount() {
+		return count;
 	}
 
-	// factoy method
-	public static CourseSession create(String department, String number, Date startDate2) {
-		incrementCount();
-		return new CourseSession(department, number, startDate2);
+	@Override
+	protected int getSessionLength() {
+		return 16;
 	}
 
-	// comaprable implementation
+	// Comparable implementation
 	public int compareTo(CourseSession that) {
 		int compare =
 				this.getDepartment().compareTo(that.getDepartment());
