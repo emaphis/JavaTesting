@@ -5,7 +5,7 @@ public class StringUtil {
 
 	private StringUtil() { };
 
-	public static String  addNL(String str) {
+	public static String  appendNewLine(String str) {
 		return str + NEW_LINE;
 	}
 }

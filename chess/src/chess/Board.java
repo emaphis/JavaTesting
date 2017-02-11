@@ -1,8 +1,9 @@
 package chess;
 
 import pieces.Piece;
+//import pieces.Piece.*;
 import java.util.*;
-import static util.StringUtil.addNL;;
+import static util.StringUtil.appendNewLine;;
 
 /**
 * A board for a game of chess
@@ -15,8 +16,9 @@ public class Board {
 	/**
 	 * @return number of Pawns on board
 	 */
-	int getNumber() {
-		return Piece.getNumber(Piece.WHITE) + Piece.getNumber(Piece.BLACK);
+	int getPieceCount() {
+		return Piece.getPieceCount(Piece.Color.WHITE) +
+				Piece.getPieceCount(Piece.Color.BLACK);
 	}
 
 	/**
@@ -28,44 +30,53 @@ public class Board {
 	 */
 	void intialize() {
 		Piece.resetNumberPieces();
-		ranks.add(createPieceRank(Piece.WHITE));
-		ranks.add(createPawnRank(Piece.WHITE, Piece.PAWN));
+		ranks.clear();
+		ranks.add(createPieceRank(Piece.Color.WHITE));
+		ranks.add(createPawnRank(Piece.Color.WHITE));
 		ranks.add(createEmptyRank());
 		ranks.add(createEmptyRank());
 		ranks.add(createEmptyRank());
 		ranks.add(createEmptyRank());
-		ranks.add(createPawnRank(Piece.BLACK, Piece.PAWN));
-		ranks.add(createPieceRank(Piece.BLACK));
+		ranks.add(createPawnRank(Piece.Color.BLACK));
+		ranks.add(createPieceRank(Piece.Color.BLACK));
 	}
 
-	ArrayList<Piece> createPawnRank(String color, String name) {
+	ArrayList<Piece> createPawnRank(Piece.Color color) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
-		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
+		rank.add(Piece.createPawn(color));
 		return rank;
 	}
 
-	ArrayList<Piece> createPieceRank(String color) {
+	ArrayList<Piece> createPieceRank(Piece.Color color) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(Piece.createPiece(color, Piece.ROOK));
-		rank.add(Piece.createPiece(color, Piece.KNIGHT));
-		rank.add(Piece.createPiece(color, Piece.BISHOP));
-		rank.add(Piece.createPiece(color, Piece.QUEEN));
-		rank.add(Piece.createPiece(color, Piece.KING));
-		rank.add(Piece.createPiece(color, Piece.BISHOP));
-		rank.add(Piece.createPiece(color, Piece.KNIGHT));
-		rank.add(Piece.createPiece(color, Piece.ROOK));
+		rank.add(Piece.createRook(color));
+		rank.add(Piece.createKnight(color));
+		rank.add(Piece.createBishop(color));
+		rank.add(Piece.createQueen(color));
+		rank.add(Piece.createKing(color));
+		rank.add(Piece.createBishop(color));
+		rank.add(Piece.createKnight(color));
+		rank.add(Piece.createRook(color));
 		return rank;
 	}
 
 	ArrayList<Piece> createEmptyRank() {
 		ArrayList<Piece> rank = new ArrayList<>();
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
+		rank.add(Piece.noPiece());
 		return rank;
 	}
 
@@ -78,28 +89,23 @@ public class Board {
 	 */
 
 	String getRankRepresentation(int rankNum) {
-		if (ranks.get(rankNum - 1).size() == 8) {
-			StringBuilder builder = new StringBuilder();
-			for (Piece pawn: ranks.get(rankNum-1)) {
-				builder.append(pawn.getName());
-			}
-			return builder.toString();
+		StringBuilder builder = new StringBuilder();
+		for (Piece piece: ranks.get(rankNum-1)) {
+			builder.append(piece.getRepresentation());
 		}
-		else
-			return "........";
+		return builder.toString();
 	}
 
 	// print board in reverse order, low ranks at bottom.
-	String getBoardRepresentation() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(addNL(getRankRepresentation(8)));
-		builder.append(addNL(getRankRepresentation(7)));
-		builder.append(addNL(getRankRepresentation(6)));
-		builder.append(addNL(getRankRepresentation(5)));
-		builder.append(addNL(getRankRepresentation(4)));
-		builder.append(addNL(getRankRepresentation(3)));
-		builder.append(addNL(getRankRepresentation(2)));
-		builder.append(addNL(getRankRepresentation(1)));
-		return builder.toString();
+	String print() {
+		return
+			appendNewLine(getRankRepresentation(8)) +
+			appendNewLine(getRankRepresentation(7)) +
+			appendNewLine(getRankRepresentation(6)) +
+			appendNewLine(getRankRepresentation(5)) +
+			appendNewLine(getRankRepresentation(4)) +
+			appendNewLine(getRankRepresentation(3)) +
+			appendNewLine(getRankRepresentation(2)) +
+			appendNewLine(getRankRepresentation(1));
 	}
 }

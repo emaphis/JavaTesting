@@ -14,7 +14,7 @@ public class StringUtilTest extends TestCase {
 	@Test
 	public void testAddNL() {
 		String testString = "This is a test string";
-		assertEquals(testString + NEW_LINE, StringUtil.addNL(testString));
+		assertEquals(testString + NEW_LINE, StringUtil.appendNewLine(testString));
 	}
 
 }

@@ -7,19 +7,20 @@ package pieces;
 * @author emaphis
 */
 public class Piece {
-	public static final String WHITE = "white";
-	public static final String BLACK = "black";
+	public enum Color { WHITE, BLACK, NONE };
+	public enum Type { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, NO_PIECE }
 
-	// Piece names
-	public static final String PAWN = "p";
-	public static final String ROOK = "r";
-	public static final String KNIGHT = "n";
-	public static final String BISHOP = "b";
-	public static final String QUEEN = "q";
-	public static final String KING = "k";
+	// Piece representation:
+	public static final String PAWN_REPRESENTATION = "p";
+	public static final String ROOK_REPRESENTATION = "r";
+	public static final String KNIGHT_REPRESENTATION = "n";
+	public static final String BISHOP_REPRESENTATION = "b";
+	public static final String QUEEN_REPRESENTATION = "q";
+	public static final String KING_REPRESENTATION = "k";
+	public static final String NO_PIECE_REPRESENTATION = ".";
 
-	private final String color;
-	private String name;
+	private final Color color;
+	private final Type type;
 	private static int whiteNumber = 0;
 	private static int blackNumber = 0;
 
@@ -30,15 +31,15 @@ public class Piece {
 	* @param color of the Piece
 	*        name of Piece
 	*/
-	private Piece(String color, String name) {
+	private Piece(Color color, Type type) {
 		this.color = color;
-		this.name = name;
+		this.type = type;
 	}
 
 	/**
-	* @return color of the Pawn
+	* @return color of the Piece
 	*/
-	String getColor() {
+	Color getColor() {
 		return color;
 	}
 
@@ -46,29 +47,82 @@ public class Piece {
 	 * Get one character string name of Piece.
 	 * @return name
 	 */
-	public String getName() {
-		if (color == Piece.WHITE)
-			return name;
+	public String getRepresentation() {
+		String rep;
+		if (type == Type.PAWN)
+			rep = PAWN_REPRESENTATION;
+		else if (type == Type.ROOK)
+			rep = ROOK_REPRESENTATION;
+		else if (type == Type.KNIGHT)
+			rep = KNIGHT_REPRESENTATION;
+		else if (type == Type.BISHOP)
+			rep = BISHOP_REPRESENTATION;
+		else if (type == Type.QUEEN)
+			rep = QUEEN_REPRESENTATION;
+		else if (type == Type.KING)
+			rep = KING_REPRESENTATION;
 		else
-			return name.toUpperCase();
+			return NO_PIECE_REPRESENTATION;
+
+		if (color == Color.WHITE)
+			return rep;
+		else
+			return rep.toUpperCase();
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	public boolean isWhite() {
-		return color == WHITE;
+		return color == Color.WHITE;
 	}
 
 	public boolean isBlack() {
-		return color == BLACK;
+		return color == Color.BLACK;
+	}
+
+	public boolean isNone() {
+		return type == Type.NO_PIECE;
 	}
 
 	// class interface
-	public static Piece createPiece(String color, String name) {
-		if (color == WHITE)
+	public static Piece createPawn(Color color) {
+		return createPiece(color, Type.PAWN);
+	}
+
+	public static Piece createRook(Color color)
+	{
+		return createPiece(color, Type.ROOK);
+	}
+
+	public static Piece createKnight(Color color) {
+		return createPiece(color, Type.KNIGHT);
+	}
+
+	public static Piece createBishop(Color color) {
+		return createPiece(color, Type.BISHOP);
+	}
+
+	public static Piece createQueen(Color color) {
+		return createPiece(color, Type.QUEEN);
+	}
+
+	public static Piece createKing(Color color) {
+		return createPiece(color, Type.KING);
+	}
+
+	public static Piece noPiece() {
+		return createPiece(Color.NONE, Type.NO_PIECE);
+	}
+
+	private static Piece createPiece(Color color, Type type) {
+		if (color == Color.WHITE)
 			whiteNumber++;
-		else
+		else if (color == Color.BLACK)
 			blackNumber++;
 
-		return new Piece(color, name);
+		return new Piece(color, type);
 	}
 
 	public static void resetNumberPieces() {
@@ -76,8 +130,8 @@ public class Piece {
 		blackNumber = 0;
 	}
 
-	public static int getNumber(String color) {
-		if (color == WHITE)
+	public static int getPieceCount(Color color) {
+		if (color == Color.WHITE)
 			return whiteNumber;
 		else
 			return blackNumber;

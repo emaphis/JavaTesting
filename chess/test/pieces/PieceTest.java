@@ -3,6 +3,7 @@ package pieces;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import pieces.Piece.*;
 
 public class PieceTest extends TestCase {
 
@@ -14,46 +15,56 @@ public class PieceTest extends TestCase {
 
 	@Test
 	public void testCreate() {
-		Piece pawn1 = Piece.createPiece(Piece.BLACK, Piece.PAWN);
-		assertEquals(Piece.BLACK, pawn1.getColor());
+		Piece pawn1 = Piece.createPawn(Color.BLACK);
+		assertEquals(Color.BLACK, pawn1.getColor());
 		assertTrue(pawn1.isBlack());
 		assertFalse(pawn1.isWhite());
 
-		Piece pawn2 = Piece.createPiece(Piece.WHITE, Piece.PAWN);
-		assertEquals(Piece.WHITE, pawn2.getColor());
+		Piece pawn2 = Piece.createPawn(Color.WHITE);
+		assertEquals(Color.WHITE, pawn2.getColor());
 		assertTrue(pawn2.isWhite());
 		assertFalse(pawn2.isBlack());
+
+		Piece none = Piece.noPiece();
+		assertEquals(Color.NONE, none.getColor());
+		assertTrue(none.isNone());
 	}
 
-
 	@Test
-	public void testGetName() {
-		Piece pawn1 = Piece.createPiece(Piece.WHITE, Piece.PAWN);
-		assertEquals("p", pawn1.getName());
+	public void testGetRepresentation() {
+		Piece pawn1 = Piece.createPawn(Color.WHITE);
+		assertEquals("p", pawn1.getRepresentation());
 
-		Piece pawn2 = Piece.createPiece(Piece.BLACK, Piece.PAWN);
-		assertEquals("P", pawn2.getName());
+		Piece pawn2 = Piece.createPawn(Color.BLACK);
+		assertEquals("P", pawn2.getRepresentation());
 
-		Piece bishop = Piece.createPiece(Piece.WHITE, Piece.BISHOP);
-		assertEquals("b", bishop.getName());
+		Piece bishop = Piece.createBishop(Color.WHITE);
+		assertEquals("b", bishop.getRepresentation());
+
+		Piece none = Piece.noPiece();
+		assertEquals(".", none.getRepresentation());
 	}
 
 	@Test
 	public void testGetNumberOfPieces() {
 		Piece.resetNumberPieces();
-		assertEquals(0, Piece.getNumber(Piece.WHITE));
-		assertEquals(0, Piece.getNumber(Piece.BLACK));
+		assertEquals(0, Piece.getPieceCount(Color.WHITE));
+		assertEquals(0, Piece.getPieceCount(Color.BLACK));
 
-		Piece.createPiece(Piece.WHITE, Piece.PAWN);
-		assertEquals(1, Piece.getNumber(Piece.WHITE));
-		assertEquals(0, Piece.getNumber(Piece.BLACK));
+		Piece.createPawn(Color.WHITE);
+		assertEquals(1, Piece.getPieceCount(Color.WHITE));
+		assertEquals(0, Piece.getPieceCount(Color.BLACK));
 
-		Piece.createPiece(Piece.BLACK, Piece.PAWN);
-		assertEquals(1, Piece.getNumber(Piece.WHITE));
-		assertEquals(1, Piece.getNumber(Piece.WHITE));
+		Piece.createPawn(Color.BLACK);
+		assertEquals(1, Piece.getPieceCount(Color.WHITE));
+		assertEquals(1, Piece.getPieceCount(Color.WHITE));
 
-		Piece.createPiece(Piece.WHITE, Piece.ROOK);
-		assertEquals(2, Piece.getNumber(Piece.WHITE));
-		assertEquals(1, Piece.getNumber(Piece.BLACK));
+		Piece.createRook(Color.WHITE);
+		assertEquals(2, Piece.getPieceCount(Color.WHITE));
+		assertEquals(1, Piece.getPieceCount(Color.BLACK));
+
+		Piece.noPiece();
+		assertEquals(2, Piece.getPieceCount(Color.WHITE));
+		assertEquals(1, Piece.getPieceCount(Color.BLACK));
 	}
 }
