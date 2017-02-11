@@ -4,54 +4,54 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class PawnTest extends TestCase {
+public class PieceTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		Pawn.resetNumberPawns();
+		Piece.resetNumberPieces();
 		//super.setUp();
 	}
 
 	@Test
 	public void testCreate() {
-		Pawn pawn1 = new Pawn(Pawn.BLACK, 'P');
-		assertEquals(Pawn.BLACK, pawn1.getColor());
+		Piece pawn1 = new Piece(Piece.BLACK, 'P');
+		assertEquals(Piece.BLACK, pawn1.getColor());
 
-		Pawn pawn2 = new Pawn(Pawn.WHITE, 'p');
-		assertEquals(Pawn.WHITE, pawn2.getColor());
+		Piece pawn2 = new Piece(Piece.WHITE, 'p');
+		assertEquals(Piece.WHITE, pawn2.getColor());
 	}
 
 	@Test
 	public void testDefaultPawn() {
-		Pawn pawn = new Pawn();
-		assertEquals(Pawn.WHITE, pawn.getColor());
+		Piece pawn = new Piece();
+		assertEquals(Piece.WHITE, pawn.getColor());
 		assertEquals(new Character('p'), pawn.getName());
 
 	}
 
 	@Test
 	public void testGetName() {
-		Pawn pawn1 = new Pawn(Pawn.WHITE, 'p');
+		Piece pawn1 = new Piece(Piece.WHITE, 'p');
 		assertEquals(new Character('p'), pawn1.getName());
 
-		Pawn pawn2 = new Pawn(Pawn.BLACK, 'P');
+		Piece pawn2 = new Piece(Piece.BLACK, 'P');
 		assertEquals(new Character('P'), pawn2.getName());
 
-		Pawn pawn3 = new Pawn(Pawn.BLANK, '.');
+		Piece pawn3 = new Piece(Piece.BLANK, '.');
 		assertEquals(new Character('.'),pawn3.getName()); // test my cheet.
 	}
 
 	@Test
 	public void testGetNumberOfPawns() {
-		Pawn.resetNumberPawns();
-		assertEquals(0, Pawn.getNumberPawns());
-		new Pawn();
-		assertEquals(1, Pawn.getNumberPawns());
-		new Pawn();
-		assertEquals(2, Pawn.getNumberPawns());
+		Piece.resetNumberPieces();
+		assertEquals(0, Piece.getNumberPieces());
+		new Piece();
+		assertEquals(1, Piece.getNumberPieces());
+		new Piece();
+		assertEquals(2, Piece.getNumberPieces());
 
 		// null pawns shouldn't update pawn count
-		new Pawn(Pawn.BLANK, '.');
-		assertEquals(2, Pawn.getNumberPawns());
+		new Piece(Piece.BLANK, '.');
+		assertEquals(2, Piece.getNumberPieces());
 	}
 }

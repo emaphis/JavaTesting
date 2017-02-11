@@ -1,40 +1,40 @@
 package pieces;
 
 /**
-* A pawn in a game of chess
+* A piece in a game of chess
 *
 * @author emaphis
 */
-public class Pawn {
+public class Piece {
 	public static final String WHITE = "white";
 	public static final String BLACK = "black";
 	public static final String BLANK = "blank"; // the empty square.
 
 	private final String color;
 	private Character name;
-	private static int numberOfPawns = 0;
+	private static int numberOfPieces = 0;
 
 	/**
-	* Constructs a default white Pawn
+	* Constructs a default white Piece
 	*
 	*/
-	public Pawn() {
+	public Piece() {
 		this.color = WHITE;
 		this.name = 'p';
-		numberOfPawns = numberOfPawns + 1;
+		numberOfPieces = numberOfPieces + 1;
 	}
 
 	/**
-	* Constructs a Pawn with a given color
+	* Constructs a Piece with a given color
 	*
-	* @param color og the pawn
+	* @param color of the Piece
 	*/
-	public Pawn(String color, Character name) {
+	public Piece(String color, Character name) {
 		this.color = color;
 		this.name = name;
 
 		if (color != BLANK)  // cheat and use 'if'
-			numberOfPawns = numberOfPawns + 1;
+			numberOfPieces = numberOfPieces + 1;
 	}
 
 	/**
@@ -49,11 +49,11 @@ public class Pawn {
 	}
 
 	// class interface
-	public static void resetNumberPawns() {
-		numberOfPawns = 0;
+	public static void resetNumberPieces() {
+		numberOfPieces = 0;
 	}
 
-	public static int getNumberPawns() {
-		return numberOfPawns;
+	public static int getNumberPieces() {
+		return numberOfPieces;
 	}
 }

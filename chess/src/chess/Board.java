@@ -1,6 +1,6 @@
 package chess;
 
-import pieces.Pawn;
+import pieces.Piece;
 import java.util.*;
 import static util.StringUtil.addNL;;
 
@@ -10,13 +10,13 @@ import static util.StringUtil.addNL;;
 * @author emaphis
 */
 public class Board {
-	ArrayList<ArrayList<Pawn>> ranks = new ArrayList<>();
+	ArrayList<ArrayList<Piece>> ranks = new ArrayList<>();
 
 	/**
 	 * @return number of Pawns on board
 	 */
 	int getNumber() {
-		return Pawn.getNumberPawns();
+		return Piece.getNumberPieces();
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class Board {
 	 * 1st=0, 2nd=1, 3rd=2, 4th=3, 5th=4, 5th=5, 6th=5, 7th=6, 8th=7.
 	 */
 	void intialize() {
-		Pawn.resetNumberPawns();
+		Piece.resetNumberPieces();
 		ranks.add(createEmptyRank());
 		ranks.add(createWhitePawnRank());
 		ranks.add(createEmptyRank());
@@ -38,42 +38,42 @@ public class Board {
 		ranks.add(createEmptyRank());
 	}
 
-	ArrayList<Pawn> createWhitePawnRank() {
-		ArrayList<Pawn> rank = new ArrayList<>();
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
-		rank.add(new Pawn());
+	ArrayList<Piece> createWhitePawnRank() {
+		ArrayList<Piece> rank = new ArrayList<>();
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
+		rank.add(new Piece());
 		return rank;
 	}
 
-	ArrayList<Pawn> createBlackPawnRank() {
-		ArrayList<Pawn> rank = new ArrayList<>();
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
-		rank.add(new Pawn(Pawn.BLACK,'P'));
+	ArrayList<Piece> createBlackPawnRank() {
+		ArrayList<Piece> rank = new ArrayList<>();
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(Piece.BLACK,'P'));
 		return rank;
 	}
 
-	ArrayList<Pawn> createEmptyRank() {
-		ArrayList<Pawn> rank = new ArrayList<>();
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
-		rank.add(new Pawn(Pawn.BLANK,'.'));
+	ArrayList<Piece> createEmptyRank() {
+		ArrayList<Piece> rank = new ArrayList<>();
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
+		rank.add(new Piece(Piece.BLANK,'.'));
 		return rank;
 	}
 
@@ -87,7 +87,7 @@ public class Board {
 
 	String getRankRepresentation(int rankNum) {
 		StringBuilder builder = new StringBuilder();
-		for (Pawn pawn: ranks.get(rankNum-1)) {
+		for (Piece pawn: ranks.get(rankNum-1)) {
 			builder.append(pawn.getName());
 		}
 		return builder.toString();
