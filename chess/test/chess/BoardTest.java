@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
+import static util.StringUtil.addNL;
+
 public class BoardTest extends TestCase {
 
 	@Override
@@ -25,15 +27,18 @@ public class BoardTest extends TestCase {
 	}
 
 
-    private  String expectedBoard1 =
-    		"........" + Board.NEW_LINE +
-    		"PPPPPPPP" + Board.NEW_LINE +
-    		"........" + Board.NEW_LINE +
-    		"........" + Board.NEW_LINE +
-    		"........" + Board.NEW_LINE +
-    		"........" + Board.NEW_LINE +
-    		"pppppppp" + Board.NEW_LINE +
-    		"........" + Board.NEW_LINE;
+    private  String expectedBoard() {
+    	StringBuilder builder = new StringBuilder();
+    	builder.append(addNL("........"));
+    	builder.append(addNL("PPPPPPPP"));
+    	builder.append(addNL("........"));
+    	builder.append(addNL("........"));
+    	builder.append(addNL("........"));
+    	builder.append(addNL("........"));
+    	builder.append(addNL("pppppppp"));
+    	builder.append(addNL("........"));
+    	return builder.toString();
+    }
 
 	@Test
 	public void testBoardRepresentation() {
@@ -42,6 +47,6 @@ public class BoardTest extends TestCase {
 
 		System.out.println(board.getBoardRepresentation());
 
-		assertEquals(expectedBoard1, board.getBoardRepresentation());
+		assertEquals(expectedBoard(), board.getBoardRepresentation());
 	}
 }

@@ -2,6 +2,7 @@ package chess;
 
 import pieces.Pawn;
 import java.util.*;
+import static util.StringUtil.addNL;;
 
 /**
 * A board for a game of chess
@@ -10,7 +11,6 @@ import java.util.*;
 */
 public class Board {
 	ArrayList<ArrayList<Pawn>> ranks = new ArrayList<>();
-	public static final String NEW_LINE = System.getProperty("line.separator");
 
 	/**
 	 * @return number of Pawns on board
@@ -96,14 +96,14 @@ public class Board {
 	// print board in reverse order, low ranks at bottom.
 	String getBoardRepresentation() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getRankRepresentation(8) + NEW_LINE);
-		builder.append(getRankRepresentation(7) + NEW_LINE);
-		builder.append(getRankRepresentation(6) + NEW_LINE);
-		builder.append(getRankRepresentation(5) + NEW_LINE);
-		builder.append(getRankRepresentation(4) + NEW_LINE);
-		builder.append(getRankRepresentation(3) + NEW_LINE);
-		builder.append(getRankRepresentation(2) + NEW_LINE);
-		builder.append(getRankRepresentation(1) + NEW_LINE);
+		builder.append(addNL(getRankRepresentation(8)));
+		builder.append(addNL(getRankRepresentation(7)));
+		builder.append(addNL(getRankRepresentation(6)));
+		builder.append(addNL(getRankRepresentation(5)));
+		builder.append(addNL(getRankRepresentation(4)));
+		builder.append(addNL(getRankRepresentation(3)));
+		builder.append(addNL(getRankRepresentation(2)));
+		builder.append(addNL(getRankRepresentation(1)));
 		return builder.toString();
 	}
 }
