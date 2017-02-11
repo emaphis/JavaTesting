@@ -23,17 +23,18 @@ public class Board {
 	 * initialized the board with Pawns Pieces and empty squares
 	 * Empty squares are represented by nulls.
 	 *
-	 * Creates ranks in reverse order.
+	 * Creates ranks in order add one.
+	 * 1st=0, 2nd=1, 3rd=2, 4th=3, 5th=4, 5th=5, 6th=5, 7th=6, 8th=7.
 	 */
 	void intialize() {
 		Pawn.resetNumberPawns();
 		ranks.add(createEmptyRank());
-		ranks.add(createBlackPawnRank());
-		ranks.add(createEmptyRank());
-		ranks.add(createEmptyRank());
-		ranks.add(createEmptyRank());
-		ranks.add(createEmptyRank());
 		ranks.add(createWhitePawnRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createBlackPawnRank());
 		ranks.add(createEmptyRank());
 	}
 
@@ -92,18 +93,17 @@ public class Board {
 		return builder.toString();
 	}
 
+	// print board in reverse order, low ranks at bottom.
 	String getBoardRepresentation() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getRankRepresentation(1) + NEW_LINE);
-		builder.append(getRankRepresentation(2) + NEW_LINE);
-		builder.append(getRankRepresentation(3) + NEW_LINE);
-		builder.append(getRankRepresentation(4) + NEW_LINE);
-		builder.append(getRankRepresentation(5) + NEW_LINE);
-		builder.append(getRankRepresentation(6) + NEW_LINE);
-		builder.append(getRankRepresentation(7) + NEW_LINE);
 		builder.append(getRankRepresentation(8) + NEW_LINE);
-
+		builder.append(getRankRepresentation(7) + NEW_LINE);
+		builder.append(getRankRepresentation(6) + NEW_LINE);
+		builder.append(getRankRepresentation(5) + NEW_LINE);
+		builder.append(getRankRepresentation(4) + NEW_LINE);
+		builder.append(getRankRepresentation(3) + NEW_LINE);
+		builder.append(getRankRepresentation(2) + NEW_LINE);
+		builder.append(getRankRepresentation(1) + NEW_LINE);
 		return builder.toString();
 	}
-
 }

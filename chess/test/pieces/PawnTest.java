@@ -25,6 +25,7 @@ public class PawnTest extends TestCase {
 	public void testDefaultPawn() {
 		Pawn pawn = new Pawn();
 		assertEquals(Pawn.WHITE, pawn.getColor());
+		assertEquals(new Character('p'), pawn.getName());
 
 	}
 
