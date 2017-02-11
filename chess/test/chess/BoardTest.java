@@ -3,6 +3,7 @@ package chess;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import pieces.Piece;
 
 import static util.StringUtil.addNL;
 
@@ -19,6 +20,8 @@ public class BoardTest extends TestCase {
 		board.intialize();
 		//Pawn.resetNumberPawns();
 		assertEquals(32, board.getNumber());
+		assertEquals(16, Piece.getNumber(Piece.WHITE));
+		assertEquals(16, Piece.getNumber(Piece.BLACK));
 		assertEquals("pppppppp", board.getRankRepresentation(2));
 		assertEquals("PPPPPPPP", board.getRankRepresentation(7));
 		assertEquals("RNBQKBNR", board.getRankRepresentation(8));

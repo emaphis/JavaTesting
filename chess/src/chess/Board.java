@@ -16,7 +16,7 @@ public class Board {
 	 * @return number of Pawns on board
 	 */
 	int getNumber() {
-		return Piece.getNumberPieces();
+		return Piece.getNumber(Piece.WHITE) + Piece.getNumber(Piece.BLACK);
 	}
 
 	/**
@@ -40,27 +40,27 @@ public class Board {
 
 	ArrayList<Piece> createPawnRank(String color, String name) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
-		rank.add(new Piece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
+		rank.add(Piece.createPiece(color, name));
 		return rank;
 	}
 
 	ArrayList<Piece> createPieceRank(String color) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(new Piece(color, Piece.ROOK));
-		rank.add(new Piece(color, Piece.KNIGHT));
-		rank.add(new Piece(color, Piece.BISHOP));
-		rank.add(new Piece(color, Piece.QUEEN));
-		rank.add(new Piece(color, Piece.KING));
-		rank.add(new Piece(color, Piece.BISHOP));
-		rank.add(new Piece(color, Piece.KNIGHT));
-		rank.add(new Piece(color, Piece.ROOK));
+		rank.add(Piece.createPiece(color, Piece.ROOK));
+		rank.add(Piece.createPiece(color, Piece.KNIGHT));
+		rank.add(Piece.createPiece(color, Piece.BISHOP));
+		rank.add(Piece.createPiece(color, Piece.QUEEN));
+		rank.add(Piece.createPiece(color, Piece.KING));
+		rank.add(Piece.createPiece(color, Piece.BISHOP));
+		rank.add(Piece.createPiece(color, Piece.KNIGHT));
+		rank.add(Piece.createPiece(color, Piece.ROOK));
 		return rank;
 	}
 

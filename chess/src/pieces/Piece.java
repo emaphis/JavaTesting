@@ -2,6 +2,7 @@ package pieces;
 
 /**
 * A piece in a game of chess
+* Piece is a value object.
 *
 * @author emaphis
 */
@@ -19,18 +20,19 @@ public class Piece {
 
 	private final String color;
 	private String name;
-	private static int numberOfPieces = 0;
+	private static int whiteNumber = 0;
+	private static int blackNumber = 0;
 
 
 	/**
 	* Constructs a Piece with a given color
 	*
 	* @param color of the Piece
+	*        name of Piece
 	*/
-	public Piece(String color, String name) {
+	private Piece(String color, String name) {
 		this.color = color;
 		this.name = name;
-		numberOfPieces = numberOfPieces + 1;
 	}
 
 	/**
@@ -40,6 +42,10 @@ public class Piece {
 		return color;
 	}
 
+	/**
+	 * Get one character string name of Piece.
+	 * @return name
+	 */
 	public String getName() {
 		if (color == Piece.WHITE)
 			return name;
@@ -47,12 +53,33 @@ public class Piece {
 			return name.toUpperCase();
 	}
 
-	// class interface
-	public static void resetNumberPieces() {
-		numberOfPieces = 0;
+	public boolean isWhite() {
+		return color == WHITE;
 	}
 
-	public static int getNumberPieces() {
-		return numberOfPieces;
+	public boolean isBlack() {
+		return color == BLACK;
+	}
+
+	// class interface
+	public static Piece createPiece(String color, String name) {
+		if (color == WHITE)
+			whiteNumber++;
+		else
+			blackNumber++;
+
+		return new Piece(color, name);
+	}
+
+	public static void resetNumberPieces() {
+		whiteNumber = 0;
+		blackNumber = 0;
+	}
+
+	public static int getNumber(String color) {
+		if (color == WHITE)
+			return whiteNumber;
+		else
+			return blackNumber;
 	}
 }
