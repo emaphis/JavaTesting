@@ -8,33 +8,29 @@ package pieces;
 public class Piece {
 	public static final String WHITE = "white";
 	public static final String BLACK = "black";
-	public static final String BLANK = "blank"; // the empty square.
+
+	// Piece names
+	public static final String PAWN = "p";
+	public static final String ROOK = "r";
+	public static final String KNIGHT = "n";
+	public static final String BISHOP = "b";
+	public static final String QUEEN = "q";
+	public static final String KING = "k";
 
 	private final String color;
-	private Character name;
+	private String name;
 	private static int numberOfPieces = 0;
 
-	/**
-	* Constructs a default white Piece
-	*
-	*/
-	public Piece() {
-		this.color = WHITE;
-		this.name = 'p';
-		numberOfPieces = numberOfPieces + 1;
-	}
 
 	/**
 	* Constructs a Piece with a given color
 	*
 	* @param color of the Piece
 	*/
-	public Piece(String color, Character name) {
+	public Piece(String color, String name) {
 		this.color = color;
 		this.name = name;
-
-		if (color != BLANK)  // cheat and use 'if'
-			numberOfPieces = numberOfPieces + 1;
+		numberOfPieces = numberOfPieces + 1;
 	}
 
 	/**
@@ -44,8 +40,11 @@ public class Piece {
 		return color;
 	}
 
-	public Character getName() {
-		return name;
+	public String getName() {
+		if (color == Piece.WHITE)
+			return name;
+		else
+			return name.toUpperCase();
 	}
 
 	// class interface

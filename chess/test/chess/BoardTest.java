@@ -18,25 +18,24 @@ public class BoardTest extends TestCase {
 		Board board = new Board();
 		board.intialize();
 		//Pawn.resetNumberPawns();
-		assertEquals(16, board.getNumber());
+		assertEquals(32, board.getNumber());
 		assertEquals("pppppppp", board.getRankRepresentation(2));
 		assertEquals("PPPPPPPP", board.getRankRepresentation(7));
-
-		// test my cheat
-		assertEquals("........", board.getRankRepresentation(1));
+		assertEquals("RNBQKBNR", board.getRankRepresentation(8));
+		assertEquals("........", board.getRankRepresentation(3));
 	}
 
 
     private  String expectedBoard() {
     	StringBuilder builder = new StringBuilder();
-    	builder.append(addNL("........"));
+    	builder.append(addNL("RNBQKBNR"));
     	builder.append(addNL("PPPPPPPP"));
     	builder.append(addNL("........"));
     	builder.append(addNL("........"));
     	builder.append(addNL("........"));
     	builder.append(addNL("........"));
     	builder.append(addNL("pppppppp"));
-    	builder.append(addNL("........"));
+    	builder.append(addNL("rnbqkbnr"));
     	return builder.toString();
     }
 

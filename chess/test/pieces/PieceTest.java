@@ -14,44 +14,35 @@ public class PieceTest extends TestCase {
 
 	@Test
 	public void testCreate() {
-		Piece pawn1 = new Piece(Piece.BLACK, 'P');
+		Piece pawn1 = new Piece(Piece.BLACK, Piece.PAWN);
 		assertEquals(Piece.BLACK, pawn1.getColor());
 
-		Piece pawn2 = new Piece(Piece.WHITE, 'p');
+		Piece pawn2 = new Piece(Piece.WHITE, Piece.PAWN);
 		assertEquals(Piece.WHITE, pawn2.getColor());
 	}
 
-	@Test
-	public void testDefaultPawn() {
-		Piece pawn = new Piece();
-		assertEquals(Piece.WHITE, pawn.getColor());
-		assertEquals(new Character('p'), pawn.getName());
-
-	}
 
 	@Test
 	public void testGetName() {
-		Piece pawn1 = new Piece(Piece.WHITE, 'p');
-		assertEquals(new Character('p'), pawn1.getName());
+		Piece pawn1 = new Piece(Piece.WHITE, Piece.PAWN);
+		assertEquals("p", pawn1.getName());
 
-		Piece pawn2 = new Piece(Piece.BLACK, 'P');
-		assertEquals(new Character('P'), pawn2.getName());
+		Piece pawn2 = new Piece(Piece.BLACK, Piece.PAWN);
+		assertEquals("P", pawn2.getName());
 
-		Piece pawn3 = new Piece(Piece.BLANK, '.');
-		assertEquals(new Character('.'),pawn3.getName()); // test my cheet.
+		Piece bishop = new Piece(Piece.WHITE, Piece.BISHOP);
+		assertEquals("b", bishop.getName());
 	}
 
 	@Test
-	public void testGetNumberOfPawns() {
+	public void testGetNumberOfPieces() {
 		Piece.resetNumberPieces();
 		assertEquals(0, Piece.getNumberPieces());
-		new Piece();
+		new Piece(Piece.WHITE, Piece.PAWN);
 		assertEquals(1, Piece.getNumberPieces());
-		new Piece();
+		new Piece(Piece.WHITE, Piece.PAWN);
 		assertEquals(2, Piece.getNumberPieces());
-
-		// null pawns shouldn't update pawn count
-		new Piece(Piece.BLANK, '.');
-		assertEquals(2, Piece.getNumberPieces());
+		new Piece(Piece.WHITE, Piece.ROOK);
+		assertEquals(3, Piece.getNumberPieces());
 	}
 }

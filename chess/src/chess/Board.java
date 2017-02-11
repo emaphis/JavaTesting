@@ -28,52 +28,44 @@ public class Board {
 	 */
 	void intialize() {
 		Piece.resetNumberPieces();
-		ranks.add(createEmptyRank());
-		ranks.add(createWhitePawnRank());
-		ranks.add(createEmptyRank());
-		ranks.add(createEmptyRank());
+		ranks.add(createPieceRank(Piece.WHITE));
+		ranks.add(createPawnRank(Piece.WHITE, Piece.PAWN));
 		ranks.add(createEmptyRank());
 		ranks.add(createEmptyRank());
-		ranks.add(createBlackPawnRank());
 		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createPawnRank(Piece.BLACK, Piece.PAWN));
+		ranks.add(createPieceRank(Piece.BLACK));
 	}
 
-	ArrayList<Piece> createWhitePawnRank() {
+	ArrayList<Piece> createPawnRank(String color, String name) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
-		rank.add(new Piece());
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
+		rank.add(new Piece(color, name));
 		return rank;
 	}
 
-	ArrayList<Piece> createBlackPawnRank() {
+	ArrayList<Piece> createPieceRank(String color) {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
-		rank.add(new Piece(Piece.BLACK,'P'));
+		rank.add(new Piece(color, Piece.ROOK));
+		rank.add(new Piece(color, Piece.KNIGHT));
+		rank.add(new Piece(color, Piece.BISHOP));
+		rank.add(new Piece(color, Piece.QUEEN));
+		rank.add(new Piece(color, Piece.KING));
+		rank.add(new Piece(color, Piece.BISHOP));
+		rank.add(new Piece(color, Piece.KNIGHT));
+		rank.add(new Piece(color, Piece.ROOK));
 		return rank;
 	}
 
 	ArrayList<Piece> createEmptyRank() {
 		ArrayList<Piece> rank = new ArrayList<>();
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
-		rank.add(new Piece(Piece.BLANK,'.'));
 		return rank;
 	}
 
@@ -86,11 +78,15 @@ public class Board {
 	 */
 
 	String getRankRepresentation(int rankNum) {
-		StringBuilder builder = new StringBuilder();
-		for (Piece pawn: ranks.get(rankNum-1)) {
-			builder.append(pawn.getName());
+		if (ranks.get(rankNum - 1).size() == 8) {
+			StringBuilder builder = new StringBuilder();
+			for (Piece pawn: ranks.get(rankNum-1)) {
+				builder.append(pawn.getName());
+			}
+			return builder.toString();
 		}
-		return builder.toString();
+		else
+			return "........";
 	}
 
 	// print board in reverse order, low ranks at bottom.
