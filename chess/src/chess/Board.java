@@ -1,8 +1,12 @@
 package chess;
 
 import pieces.Piece;
+import pieces.Piece.Color;
+import pieces.Piece.Type;
+
 //import pieces.Piece.*;
 import java.util.*;
+
 import static util.StringUtil.appendNewLine;;
 
 /**
@@ -28,9 +32,9 @@ public class Board {
 	 * Creates ranks in order add one.
 	 * 1st=0, 2nd=1, 3rd=2, 4th=3, 5th=4, 5th=5, 6th=5, 7th=6, 8th=7.
 	 */
-	void intialize() {
-		Piece.resetNumberPieces();
+	void initialize() {
 		ranks.clear();
+		Piece.resetNumberPieces();
 		ranks.add(createPieceRank(Piece.Color.WHITE));
 		ranks.add(createPawnRank(Piece.Color.WHITE));
 		ranks.add(createEmptyRank());
@@ -39,6 +43,19 @@ public class Board {
 		ranks.add(createEmptyRank());
 		ranks.add(createPawnRank(Piece.Color.BLACK));
 		ranks.add(createPieceRank(Piece.Color.BLACK));
+	}
+
+	void clearBoard() {
+		ranks.clear();
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		ranks.add(createEmptyRank());
+		Piece.resetNumberPieces();
 	}
 
 	ArrayList<Piece> createPawnRank(Piece.Color color) {
@@ -107,5 +124,96 @@ public class Board {
 			appendNewLine(getRankRepresentation(3)) +
 			appendNewLine(getRankRepresentation(2)) +
 			appendNewLine(getRankRepresentation(1));
+	}
+
+
+	public int getNumberOAfPiece(Piece.Color color, Piece.Type type) {
+		int count = 0;
+		for (ArrayList<Piece> rank: ranks) {
+			for (Piece piece: rank) {
+				if (piece.getColor() == color &&  piece.getType() == type)
+					count = count + 1;
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * functions that convert an alphanumeric coordinate to
+	 *  suitable for zero based array indexing
+	 *
+	 *  array[0] is a letter representing file of board
+	 *  array[1] is a single digit in char form representing
+	 *  1 based rank of board
+	 *
+	 * "a1" should produce 0,0
+	 * "a8" should produce 0,7
+	 * "e1" should produce 4,0
+	 */
+	public int getRankIdx(String coordinate) {
+		char[] array = coordinate.toCharArray();
+		int rankIdx = Integer.parseInt(String.valueOf(array[1])) - 1;
+		return rankIdx;
+	}
+
+	public int getFileIdx(String coordinate) {
+		char[] array = coordinate.toCharArray();
+		int fileIdx = array[0] - 'a';
+		return fileIdx;
+	}
+
+	public Piece getAt(String coordinate) {
+		int rankIdx = getRankIdx(coordinate);
+		int fileIdx = getFileIdx(coordinate);
+
+		ArrayList<Piece> rank = ranks.get(rankIdx);
+		return rank.get(fileIdx);
+	}
+
+
+	public void setAt(Piece piece, String coordinate) {
+		int rankIdx = getRankIdx(coordinate);
+		int fileIdx = getFileIdx(coordinate);
+
+		ArrayList<Piece> rank = ranks.get(rankIdx);
+		rank.set(fileIdx, piece);
+		ranks.set(rankIdx, rank);
+	}
+
+	public double getStrength(Color color) {
+		double strength = 0.0;
+		int rankIdx = 0;
+		for (ArrayList<Piece> rank: ranks) {
+			rankIdx++;
+			int fileIdx = 0;
+			for (Piece piece: rank) {
+				fileIdx++;
+				if (piece.getColor() == color) {
+					if (piece.getType() == Type.PAWN &&
+							pawnSameFile(rankIdx, fileIdx, color)) {
+						strength += 0.5;
+				   }
+					else {
+						strength += piece.getPieceStrength();
+					}
+				}
+			}
+		}
+		return strength;
+	}
+
+	public boolean pawnSameFile(int rankIdx, int fileIdx, Color color) {
+		int index = 0;
+		for (ArrayList<Piece> rank: ranks) {
+			if (index != rankIdx) {
+				Piece piece = rank.get(fileIdx);
+				if (piece.getColor() == color &&
+					piece.getType() == Type.PAWN)
+					return true;
+			}
+			// else skip rank
+			index++;
+		}
+		return false;
 	}
 }

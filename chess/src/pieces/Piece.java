@@ -39,7 +39,7 @@ public class Piece {
 	/**
 	* @return color of the Piece
 	*/
-	Color getColor() {
+	public Color getColor() {
 		return color;
 	}
 
@@ -84,6 +84,21 @@ public class Piece {
 
 	public boolean isNone() {
 		return type == Type.NO_PIECE;
+	}
+
+	public double getPieceStrength() {
+		if (type == Type.PAWN)
+			return 1.0;  // passed pawn 0.5
+		else if (type == Type.ROOK)
+			return 5.0;
+		else if (type == Type.KNIGHT)
+			return 2.5;
+		else if (type == Type.BISHOP)
+			return 3.0;
+		else if (type == Type.QUEEN)
+			return 9.0;
+
+		return 0.0;
 	}
 
 	// class interface
