@@ -67,4 +67,17 @@ public class PieceTest extends TestCase {
 		assertEquals(2, Piece.getPieceCount(Color.WHITE));
 		assertEquals(1, Piece.getPieceCount(Color.BLACK));
 	}
+
+	@Test
+	public void testCompareTo() {
+		Piece pawn1 = Piece.createPawn(Color.WHITE);
+		pawn1.setStrength(Piece.getTypeStrength(Piece.Type.PAWN));
+		Piece pawn2 = Piece.createPawn(Color.BLACK);
+		pawn2.setStrength(Piece.getTypeStrength(Piece.Type.PAWN));
+		Piece rook1 = Piece.createRook(Color.WHITE);
+		assertEquals(0, pawn1.compareTo(pawn2));
+		rook1.setStrength(Piece.getTypeStrength(Type.ROOK));
+		assertEquals(-1, rook1.compareTo(pawn1));
+		assertEquals(1, pawn1.compareTo(rook1));
+	}
 }

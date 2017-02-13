@@ -3,8 +3,6 @@ package chess;
 import pieces.Piece;
 import pieces.Piece.Color;
 import pieces.Piece.Type;
-
-//import pieces.Piece.*;
 import java.util.*;
 
 import static util.StringUtil.appendNewLine;;
@@ -15,7 +13,11 @@ import static util.StringUtil.appendNewLine;;
 * @author emaphis
 */
 public class Board {
-	ArrayList<ArrayList<Piece>> ranks = new ArrayList<>();
+	List<List<Piece>> ranks = new ArrayList<>();
+
+	// sorted Piece lists.
+	List<Piece> whiteStrengthList = new ArrayList<>();
+	List<Piece> blackStrengthList = new ArrayList<>();
 
 	/**
 	 * @return number of Pawns on board
@@ -58,8 +60,8 @@ public class Board {
 		Piece.resetNumberPieces();
 	}
 
-	ArrayList<Piece> createPawnRank(Piece.Color color) {
-		ArrayList<Piece> rank = new ArrayList<>();
+	List<Piece> createPawnRank(Piece.Color color) {
+		List<Piece> rank = new ArrayList<>();
 		rank.add(Piece.createPawn(color));
 		rank.add(Piece.createPawn(color));
 		rank.add(Piece.createPawn(color));
@@ -71,8 +73,8 @@ public class Board {
 		return rank;
 	}
 
-	ArrayList<Piece> createPieceRank(Piece.Color color) {
-		ArrayList<Piece> rank = new ArrayList<>();
+	List<Piece> createPieceRank(Piece.Color color) {
+		List<Piece> rank = new ArrayList<>();
 		rank.add(Piece.createRook(color));
 		rank.add(Piece.createKnight(color));
 		rank.add(Piece.createBishop(color));
@@ -84,8 +86,8 @@ public class Board {
 		return rank;
 	}
 
-	ArrayList<Piece> createEmptyRank() {
-		ArrayList<Piece> rank = new ArrayList<>();
+	List<Piece> createEmptyRank() {
+		List<Piece> rank = new ArrayList<>();
 		rank.add(Piece.noPiece());
 		rank.add(Piece.noPiece());
 		rank.add(Piece.noPiece());
@@ -129,7 +131,7 @@ public class Board {
 
 	public int getNumberOAfPiece(Piece.Color color, Piece.Type type) {
 		int count = 0;
-		for (ArrayList<Piece> rank: ranks) {
+		for (List<Piece> rank: ranks) {
 			for (Piece piece: rank) {
 				if (piece.getColor() == color &&  piece.getType() == type)
 					count = count + 1;
@@ -166,7 +168,7 @@ public class Board {
 		int rankIdx = getRankIdx(coordinate);
 		int fileIdx = getFileIdx(coordinate);
 
-		ArrayList<Piece> rank = ranks.get(rankIdx);
+		List<Piece> rank = ranks.get(rankIdx);
 		return rank.get(fileIdx);
 	}
 
@@ -175,45 +177,74 @@ public class Board {
 		int rankIdx = getRankIdx(coordinate);
 		int fileIdx = getFileIdx(coordinate);
 
-		ArrayList<Piece> rank = ranks.get(rankIdx);
+		List<Piece> rank = ranks.get(rankIdx);
 		rank.set(fileIdx, piece);
 		ranks.set(rankIdx, rank);
 	}
 
 	public double getStrength(Color color) {
-		double strength = 0.0;
+		double totalStrength = 0.0;
+
+		if (color == Color.BLACK)
+			whiteStrengthList.clear();
+		else
+			blackStrengthList.clear();
+
 		int rankIdx = 0;
-		for (ArrayList<Piece> rank: ranks) {
-			rankIdx++;
+		for (List<Piece> rank: ranks) {
 			int fileIdx = 0;
 			for (Piece piece: rank) {
-				fileIdx++;
 				if (piece.getColor() == color) {
-					if (piece.getType() == Type.PAWN &&
-							pawnSameFile(rankIdx, fileIdx, color)) {
-						strength += 0.5;
-				   }
-					else {
-						strength += piece.getPieceStrength();
-					}
+					double strength = 0.0;
+					if (piece.getType() == Type.PAWN)
+						strength = getPawnStrength(rankIdx, fileIdx, piece);
+					else
+						strength = Piece.getTypeStrength(piece.getType());
+
+					totalStrength += strength;
+
+					piece.setStrength(strength);
+					if (color == Color.WHITE)
+						whiteStrengthList.add(piece);
+					else
+						blackStrengthList.add(piece);
 				}
+				totalStrength += 0.0;
+				fileIdx++;
 			}
+			rankIdx++;
 		}
-		return strength;
+		return totalStrength;
 	}
 
-	public boolean pawnSameFile(int rankIdx, int fileIdx, Color color) {
+	public double  getPawnStrength(int rankIdx, int fileIdx, Piece pawn) {
 		int index = 0;
-		for (ArrayList<Piece> rank: ranks) {
+		for (List<Piece> rank: ranks) {
 			if (index != rankIdx) {
 				Piece piece = rank.get(fileIdx);
-				if (piece.getColor() == color &&
-					piece.getType() == Type.PAWN)
-					return true;
+				if (piece.getColor() == pawn.getColor() &&
+					  piece.getType() == Type.PAWN){
+					return Piece.getTypeStrength(pawn.getType()) * 0.5; // passed pawn
+				}
 			}
-			// else skip rank
+			// else  { skip rank }
 			index++;
 		}
-		return false;
+		return Piece.getTypeStrength(pawn.getType());  // full pawn
+	}
+
+	public List<Piece> getStrengthList(Color color) {
+		List<Piece> strengthList = null;
+		if (color == Color.WHITE)
+			strengthList = whiteStrengthList;
+		else
+			strengthList = blackStrengthList;
+
+		Collections.sort(strengthList);
+		return strengthList;
+	}
+
+	public static void main(String[] args) {
+
 	}
 }

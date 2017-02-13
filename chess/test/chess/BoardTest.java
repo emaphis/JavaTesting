@@ -3,6 +3,7 @@ package chess;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import java.util.*;
 import pieces.Piece;
 import pieces.Piece.Color;
 import pieces.Piece.Type;
@@ -128,70 +129,77 @@ public class BoardTest extends TestCase {
 		board.clearBoard();
 		assertEquals(0.0, board.getStrength(Color.WHITE));
 
-		// only piece on the board should be false
+		// add one pawn - only piece on the board should return 1.0
 		board.setAt(Piece.createPawn(Color.WHITE), "a2");
-		assertFalse(board.pawnSameFile(
-						board.getRankIdx("a2"),
-						board.getFileIdx("a2"),
-						Color.WHITE));
 		assertEquals(1.0, board.getStrength(Color.WHITE)); // 0 + 1 : 1
 
-		// same file, but not a pawn - should be false.
+		// add a piece - same file, but not a pawn - should return  1 + rook(5)
 		board.setAt(Piece.createRook(Color.WHITE), "a1");
 		assertEquals(6.0, board.getStrength(Color.WHITE)); // 1 + 5 : 6
 
-		// different color - increment black
+		// add a black bishop - different color - increment black
 		board.setAt(Piece.createBishop(Color.BLACK), "g8");
 		assertEquals(6.0, board.getStrength(Color.WHITE)); // 6 + 0 : 6
 		assertEquals(3.0, board.getStrength(Color.BLACK)); // 0 + 3 : 3
 
-		// king souldn't hava any points
+		// king souldn't add any points
 		board.setAt(Piece.createKing(Color.WHITE), "e1");
 		assertEquals(6.0, board.getStrength(Color.WHITE)); // 6 + 0 : 6
 
-		// test same rank but different file - should be false
+		// test same rank but different file - should return full pawn
 		board.setAt(Piece.createPawn(Color.WHITE), "b2");
-		assertFalse(board.pawnSameFile(
-						board.getRankIdx("b2"),  // different file
-						board.getFileIdx("b2"),
-						Color.WHITE));
+		assertEquals(7.0, board.getStrength(Color.WHITE)); // 6 + 1 : 7
 
-		assertFalse(board.pawnSameFile(
-						board.getRankIdx("a2"),  // different file
-						board.getFileIdx("a2"),
-						Color.WHITE));
-		assertEquals(6.5, board.getStrength(Color.WHITE)); // 5.5 + .5 : 6.0
+		// add pawn to same file - should reduce 1st paw to 0.5 and add 0.5 for new pawn
 		board.setAt(Piece.createPawn(Color.WHITE), "b4");
-		assertTrue(board.pawnSameFile(
-						board.getRankIdx("b4"),  // same file
-						board.getFileIdx("b4"),
-						Color.WHITE));
-		assertEquals(7.5, board.getStrength(Color.WHITE));
+		assertEquals(7.0, board.getStrength(Color.WHITE)); // 6 + 0.5 + 0.5 : 6
 	}
 
 	@Test
-	public void testPawnSameFile() {
+	public void testGetPawnStrength() {
 		// same file is same letter coordinate but different number
 		// different rank is different number coordinate
 		board.clearBoard();
-		board.setAt(Piece.createPawn(Color.WHITE), "a2");
-		board.setAt(Piece.createPawn(Color.WHITE), "a3");
-		assertTrue(board.pawnSameFile(board.getRankIdx("a2"), board.getFileIdx("a2"), Color.WHITE));
-		assertTrue(board.pawnSameFile(board.getRankIdx("a3"), board.getFileIdx("a3"), Color.WHITE));
+		Piece whitePawn1 = Piece.createPawn(Color.WHITE);
+		Piece whitePawn2 = Piece.createPawn(Color.WHITE);
+		Piece blackPawn3 = Piece.createPawn(Color.BLACK);
+
+		board.setAt(whitePawn1, "a2");
+		board.setAt(whitePawn2, "a3");
+		assertEquals(0.5, board.getPawnStrength(board.getRankIdx("a2"), board.getFileIdx("a2"), whitePawn1));
+		assertEquals(0.5, board.getPawnStrength(board.getRankIdx("a3"), board.getFileIdx("a3"), whitePawn2));
 
 		// different file is different letter coordinate
 		// same rank is same number coordinate
 		board.clearBoard();
-		board.setAt(Piece.createPawn(Color.WHITE), "a2");
-		board.setAt(Piece.createPawn(Color.WHITE), "b2");
-		assertFalse(board.pawnSameFile(board.getRankIdx("a2"), board.getFileIdx("a2"), Color.WHITE));
-		assertFalse(board.pawnSameFile(board.getRankIdx("b2"), board.getFileIdx("b3"), Color.WHITE));
+		board.setAt(whitePawn1, "a2");
+		board.setAt(whitePawn2, "b2");
+		assertEquals(1.0, board.getPawnStrength(board.getRankIdx("a2"), board.getFileIdx("a2"), whitePawn1));
+		assertEquals(1.0, board.getPawnStrength(board.getRankIdx("b2"), board.getFileIdx("b3"), whitePawn2));
 
 		// same file but different color
 		board.clearBoard();
-		board.setAt(Piece.createPawn(Color.WHITE), "a2");
-		board.setAt(Piece.createPawn(Color.BLACK), "a3");
-		assertFalse(board.pawnSameFile(board.getRankIdx("a2"), board.getFileIdx("a2"), Color.WHITE));
-		assertFalse(board.pawnSameFile(board.getRankIdx("a3"), board.getFileIdx("a3"), Color.BLACK));
+		board.setAt(whitePawn1, "a2");
+		board.setAt(blackPawn3, "a3");
+		assertEquals(1.0, board.getPawnStrength(board.getRankIdx("a2"), board.getFileIdx("a2"), whitePawn1));
+		assertEquals(1.0, board.getPawnStrength(board.getRankIdx("a3"), board.getFileIdx("a3"), blackPawn3));
+	}
+
+	@Test
+	public void testStrengthList() {
+		board.clearBoard();
+
+		board.setAt(Piece.createPawn(Color.WHITE), "a2");   // 1.0
+		board.setAt(Piece.createPawn(Color.WHITE), "b2");   // 0.5 same file passed pawn
+		board.setAt(Piece.createPawn(Color.WHITE), "b4");   // 0.5 same file passed pawn
+		board.setAt(Piece.createQueen(Color.WHITE), "e1");  // 9.0
+		board.setAt(Piece.createBishop(Color.WHITE), "d1"); // 3.0
+		assertEquals(14.0, board.getStrength(Color.WHITE));
+		List<Piece> list = board.getStrengthList(Color.WHITE);
+		assertEquals(9.0, list.get(0).getStrength());
+		assertEquals(3.0, list.get(1).getStrength());
+		assertEquals(1.0, list.get(2).getStrength());
+		assertEquals(0.5, list.get(3).getStrength());
+		assertEquals(0.5, list.get(4).getStrength());
 	}
 }

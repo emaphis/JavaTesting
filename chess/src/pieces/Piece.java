@@ -6,7 +6,7 @@ package pieces;
 *
 * @author emaphis
 */
-public class Piece {
+public class Piece implements Comparable<Piece> {
 	public enum Color { WHITE, BLACK, NONE };
 	public enum Type { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, NO_PIECE }
 
@@ -23,6 +23,7 @@ public class Piece {
 	private final Type type;
 	private static int whiteNumber = 0;
 	private static int blackNumber = 0;
+	private double pieceStrength = 0;
 
 
 	/**
@@ -86,7 +87,7 @@ public class Piece {
 		return type == Type.NO_PIECE;
 	}
 
-	public double getPieceStrength() {
+	public static double getTypeStrength(Type type) {
 		if (type == Type.PAWN)
 			return 1.0;  // passed pawn 0.5
 		else if (type == Type.ROOK)
@@ -99,6 +100,24 @@ public class Piece {
 			return 9.0;
 
 		return 0.0;
+	}
+
+	@Override
+	public int compareTo(Piece piece) {
+		if (piece.getStrength() > this.getStrength())
+			return 1;
+		else if (piece.getStrength() < this.getStrength())
+			return -1;
+		else
+			return 0;
+	}
+
+	public void setStrength(double strength) {
+		this.pieceStrength = strength;
+	}
+
+	public double getStrength() {
+		return pieceStrength;
 	}
 
 	// class interface
