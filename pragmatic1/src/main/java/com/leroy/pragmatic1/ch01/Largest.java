@@ -20,4 +20,3 @@ public class Largest {
         return max;
     }
 }
-S
