@@ -53,3 +53,12 @@ assertFalse([String message], boolean condition)
 '''
 fail([String message])
 '''
+
+## RIGHT -BICEP
+
+- Right - Are the results right?
+- B -- Are all the boundary conditions CORRECT?
+- I -- Can you check inverse relationships?
+- C -- Can you cross-check results using other means?
+- E -- Can you force error conditions to happen?
+- P -- Are performance characteristics within bounds?
